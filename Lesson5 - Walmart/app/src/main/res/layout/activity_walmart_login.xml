@@ -80,7 +80,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/txtEmail"
+            android:id="@+id/txtFirstname"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="25dp"
@@ -105,12 +105,12 @@
             android:gravity="bottom"
             android:minHeight="48dp"
             android:text="Password(required)"
-            app:layout_constraintBottom_toTopOf="@+id/txtPassword"
+            app:layout_constraintBottom_toTopOf="@+id/txtLastname"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/txtFirstname" />
 
         <EditText
-            android:id="@+id/txtPassword"
+            android:id="@+id/txtLastname"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="25dp"

@@ -1,8 +1,7 @@
 package com.sw06d120.lesson4
 
-class User( _firstName: String = "", _lastName: String = "", _userName: String = "", _password: String = "") {
-    var firstName: String = _firstName
-    var lastName: String = _lastName
-    var userName: String = _userName
-    var password: String = _password
+import java.io.Serializable
+
+class User(var firstName: String = "",var lastName: String = "",var userName: String = "",var password: String = ""):
+    Serializable {
 }

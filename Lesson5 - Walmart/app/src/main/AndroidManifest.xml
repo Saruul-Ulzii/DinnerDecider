@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lesson4">
         <activity
+            android:name=".CreateUser"
+            android:exported="false" />
+        <activity
             android:name=".ShoppingCategory"
             android:exported="false" />
         <activity

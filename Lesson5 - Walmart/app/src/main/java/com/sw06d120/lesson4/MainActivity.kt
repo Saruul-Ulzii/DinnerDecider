@@ -1,47 +1,57 @@
 package com.sw06d120.lesson4
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_walmart_login.*
-import java.time.Duration
 
 class MainActivity : AppCompatActivity() {
     private var users: ArrayList<User> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_walmart_login)
+        supportActionBar?.hide()
 
         addDummyUsers()
 
         btnSignIn.setOnClickListener {
-            var username = txtEmail.text
-            var password = txtPassword.text
+            var username = txtFirstname.text
+            var password = txtLastname.text
 
             if(username.isNullOrEmpty() || password.isNullOrEmpty()) {
-                var toast = Toast.makeText(this, "Please enter valid credentials!", Toast.LENGTH_SHORT)
-                toast.show()
-                txtEmail.requestFocusFromTouch()
+                Toast.makeText(this, "Please enter valid credentials!", Toast.LENGTH_SHORT).show()
+                txtFirstname.requestFocusFromTouch()
             } else {
                 if(validUser(username = username.toString(), password = password.toString())) {
                     var shoppingActivity = Intent(this, ShoppingCategory::class.java)
-                    shoppingActivity.putExtra("username", username)
+                    shoppingActivity.putExtra("username", username.toString())
                     startActivity(shoppingActivity)
                 } else {
-                    var toast = Toast.makeText(this, "User not found. \nPlease enter valid credentials!", Toast.LENGTH_LONG)
-                    toast.show()
-                    txtEmail.setText("")
-                    txtPassword.setText("")
-                    txtEmail.requestFocusFromTouch()
+                    Toast.makeText(this, "User not found. \nPlease enter valid credentials!", Toast.LENGTH_LONG).show()
+                    txtFirstname.setText("")
+                    txtLastname.setText("")
+                    txtFirstname.requestFocusFromTouch()
                 }
             }
         }
 
         btnCreateAccount.setOnClickListener {
-            var shoppingActivity = Intent(this, ShoppingCategory::class.java)
-            shoppingActivity.putExtra("username", username)
-            startActivity(shoppingActivity)
+            var createUserActivity = Intent(this, CreateUser::class.java)
+            resultHandler.launch(createUserActivity)
+        }
+    }
+
+    private var resultHandler = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val passedUser = data!!.getSerializableExtra("newUser")
+            val newUser = passedUser as User
+            users.add(newUser)
         }
     }
 
@@ -53,6 +63,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         return false
+    }
+
+    fun getUser(username: String): User {
+        for (u: User in users) {
+            if(u.userName.equals(username)) {
+                return u
+            }
+        }
+
+        return User()
+    }
+
+    fun forgotPassword(view: View) {
+        var email = txtFirstname.text
+        var user = getUser(email.toString())
+
+        if(!user.userName.equals("")) {
+            var sendPasswordIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
+            sendPasswordIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+            sendPasswordIntent.putExtra(Intent.EXTRA_SUBJECT, "Sending your password. Please change it asap!")
+            sendPasswordIntent.putExtra(Intent.EXTRA_TEXT, "Your password: ${user.password}")
+            startActivity(Intent.createChooser(sendPasswordIntent, "Send Email Using: "))
+        } else {
+            Toast.makeText(this, "User not found. \nPlease enter valid credentials!", Toast.LENGTH_LONG).show()
+        }
     }
 
     fun addDummyUsers() {

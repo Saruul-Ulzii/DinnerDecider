@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".CreateUser">
 
     <ImageView
         android:id="@+id/logo"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="60dp"
         android:autoSizeTextType="uniform"
         android:gravity="center_vertical|center_horizontal"
-        android:text="@string/sign_in_to_your_account"
+        android:text="Create your account"
         app:fontFamily="sans-serif"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="80dp" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout2"
@@ -67,6 +67,19 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3">
 
         <TextView
+            android:id="@+id/lblEmail2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:ems="10"
+            android:gravity="bottom"
+            android:minHeight="48dp"
+            android:text="* required fields"
+            app:layout_constraintBottom_toTopOf="@+id/lblEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/lblEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,9 +87,10 @@
             android:ems="10"
             android:gravity="bottom"
             android:minHeight="48dp"
-            android:text="@string/email_address_required"
+            android:text="First name *"
+            app:layout_constraintBottom_toTopOf="@+id/txtFirstname"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/lblEmail2" />
 
         <EditText
             android:id="@+id/txtFirstname"
@@ -87,7 +101,7 @@
             android:autofillHints=""
             android:background="@drawable/input_border"
             android:ems="10"
-            android:inputType="textEmailAddress"
+            android:inputType="textPersonName"
             android:minHeight="48dp"
             app:layout_constraintBottom_toTopOf="@+id/lblPassword"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +117,7 @@
             android:ems="10"
             android:gravity="bottom"
             android:minHeight="48dp"
-            android:text="@string/password_required"
+            android:text="Last name *"
             app:layout_constraintBottom_toTopOf="@+id/txtLastname"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtFirstname" />
@@ -117,8 +131,9 @@
             android:autofillHints=""
             android:background="@drawable/input_border"
             android:ems="10"
-            android:inputType="textPassword"
+            android:inputType="textPersonName"
             android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/lblPassword2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,79 +141,82 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/lblForgotPassword"
+            android:id="@+id/lblPassword2"
             android:layout_width="163dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="25dp"
-            android:autoLink="all"
-            android:clickable="true"
+            android:layout_height="31dp"
+            android:layout_marginStart="32dp"
             android:ems="10"
-            android:focusable="true"
-            android:gravity="end"
+            android:gravity="bottom"
             android:minHeight="48dp"
-            android:onClick="forgotPassword"
-            android:text="@string/forgot_password"
-            android:textColor="#2400ff"
-            app:layout_constraintBottom_toTopOf="@+id/btnSignIn"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Email address *"
+            app:layout_constraintBottom_toTopOf="@+id/txtEmail"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtLastname" />
 
-        <Button
-            android:id="@+id/btnSignIn"
+        <EditText
+            android:id="@+id/txtEmail"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="25dp"
-            android:text="@string/sign_in"
-            app:backgroundTint="#0E84DC"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            android:autofillHints=""
+            android:background="@drawable/input_border"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/lblPassword3"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblForgotPassword"
-            app:layout_constraintVertical_bias="0.153"
-            tools:ignore="TextContrastCheck" />
+            app:layout_constraintTop_toBottomOf="@+id/lblPassword2"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <TextView
+            android:id="@+id/lblPassword3"
+            android:layout_width="163dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="32dp"
+            android:ems="10"
+            android:gravity="bottom"
+            android:minHeight="48dp"
+            android:text="Password *"
+            app:layout_constraintBottom_toTopOf="@+id/txtPassword3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+        <EditText
+            android:id="@+id/txtPassword3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:orientation="horizontal"
+            android:autofillHints=""
+            android:background="@drawable/input_border"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
             app:layout_constraintBottom_toTopOf="@+id/btnCreateAccount"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnSignIn">
-
-            <TextView
-                android:id="@+id/lblDontAccount"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:ems="10"
-                android:gravity="center|bottom"
-                android:minHeight="48dp"
-                android:text="@string/don_t_have_an_account"
-                app:fontFamily="sans-serif-black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/lblPassword3"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/btnCreateAccount"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:text="@string/create_a_new_account"
             android:textColor="#1976D2"
             app:backgroundTint="#FFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/txtPassword3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
