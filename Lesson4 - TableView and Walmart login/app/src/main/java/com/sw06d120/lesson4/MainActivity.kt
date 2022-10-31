@@ -10,21 +10,42 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private var users: ArrayList<User> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        addRow("Android1", "Code1")
-        addRow("Android2", "Code2")
+        addDummyUsers()
+        addDummyRows()
 
         btnAdd.setOnClickListener {
             addVersion()
         }
-
         btnLogin.setOnClickListener {
             val intent = Intent(this, WalmartLogin::class.java)
             startActivity(intent)
         }
+    }
+
+    fun addDummyUsers() {
+        var user1: User = User("Johny", "English", "jenglish@gmail.com", "pass1234")
+        var user2: User = User("David", "Albert", "dalbert@gmail.com", "pass3456")
+        var user3: User = User("Marks", "Twin", "mtwin@gmail.com", "pass4672")
+        var user4: User = User("Jack", "London", "jlondon@gmail.com", "pass7261")
+        var user5: User = User("Thomas", "Edison", "tedison@gmail.com", "pass5714")
+
+        users.add(user1)
+        users.add(user2)
+        users.add(user3)
+        users.add(user4)
+        users.add(user5)
+
+        print("users: " + users)
+    }
+
+    fun addDummyRows() {
+        addRow("Android1", "Code1")
+        addRow("Android2", "Code2")
     }
 
     fun addRow(name: String, code: String) {
