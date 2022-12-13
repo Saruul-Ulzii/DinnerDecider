@@ -3,17 +3,14 @@ package com.sw06d120.cv_builder_app.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingstuff.scrollview.Adapter.ContactAdapter
-import com.codingstuff.scrollview.Adapter.WorkExperienceAdapter
 import com.sw06d120.cv_builder_app.R
 import com.sw06d120.cv_builder_app.model.ContactItem
-import com.sw06d120.cv_builder_app.model.WorkExperienceItem
 import kotlinx.android.synthetic.main.fragment_work.view.*
 
 class FragmentContact : Fragment(), ContactAdapter.ItemSelectionListener {
@@ -77,16 +74,22 @@ class FragmentContact : Fragment(), ContactAdapter.ItemSelectionListener {
                     "mailto", "${contactList[position].contact}", null
                 )
             )
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contacting from Resume app")
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Resume app")
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello, have a good day!")
             startActivity(Intent.createChooser(emailIntent, "Send"))
         }
 
-        if(position == 3) {
+        if(position == 2) {
             val linkedIn = Intent(Intent.ACTION_VIEW)
             linkedIn.data = Uri.parse("${contactList[position].contact}")
             linkedIn.setPackage("com.linkedin.android")
             startActivity(linkedIn)
+        }
+
+        if(position == 3) {
+            val webView = Intent(Intent.ACTION_VIEW)
+            webView.data = Uri.parse("${contactList[position].contact}")
+            startActivity(webView)
         }
     }
 }
