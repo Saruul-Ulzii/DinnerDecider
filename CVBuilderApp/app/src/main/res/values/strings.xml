@@ -28,4 +28,6 @@
     <string name="about_me_cert">Certificates</string>
     <string name="work_exp">Experiences</string>
     <string name="my_contacts">Contacts</string>
+    <string name="linkedin_title">Linkedin</string>
+    <string name="email_title">Email</string>
 </resources>
