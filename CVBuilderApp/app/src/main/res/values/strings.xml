@@ -1,4 +1,31 @@
 <resources>
     <string name="app_name">CV</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="sign_in_to_acc">Sign into your account</string>
+    <string name="sign_in_email">Email:</string>
+    <string name="sign_password">Password: </string>
+    <string name="login">Login</string>
+    <string name="fullname">Saruul-Ulzii Sampilnorov</string>
+    <string name="prof">Software engineer</string>
+    <string name="home_career_note_title"><b>Career note</b></string>
+    <string name="home_career_note_body"><b>Completed</b> on-campus studies and currently taking distance education courses to complete a Master\'s Degree in Computer Science (Available for full-time, <b>W-2</b> employment).</string>
+    <string name="home_work_exp_title"><b>Work experience</b></string>
+    <string name="home_work_exp_body">
+        <b>Languages:</b>  C#, Java, Swift, Ruby\n
+        <b>Web:</b>  HTML5, CSS3, JavaScript, TypeScript\n
+        <b>Web Services:</b>  REST\n
+        <b>Web/App Servers:</b>  Nginx, Apache\n
+        <b>Frameworks:</b>  Ionic, Symfony, VueJS, Angular\n
+        <b>Databases:</b>  MySQL, MS SQL, PostgreSQL, SQLite, Oracle PL/SQL, MongoDB\n
+        <b>Design Patterns:</b>  MVC, Adapter, Bridge, Command, Composite, Decorator, Façade, Factory, Strategy, Observer, Iterator, Prototype, Proxy, Singleton, State, Template\n
+        <b>SDLC:</b>  Agile-Scrum\n
+        <b>Tools:</b>  Git, Xcode, Visual Studio, VS Code, Eclipse, Unity 3D, MS Visio, MS Project, SVN\n
+        <b>Platforms:</b>  Mac OSX, Windows
+    </string>
+    <string name="about_me_title">About me</string>
+    <string name="about_me_body">Highly talented full stack iOS and Java software developer offering over 13 years of outstanding hands on experience in the software development industry. Proven, dedicated history of designing and implementing all aspects of enterprise solutions, using modern SDLC methodologies, effective coding skills, and an in-depth knowledge of industry best practices.</string>
+    <string name="about_me_edu">Education</string>
+    <string name="about_me_edu_college">College</string>
+    <string name="about_me_cert">Certificates</string>
+    <string name="work_exp">Experiences</string>
+    <string name="my_contacts">Contacts</string>
 </resources>

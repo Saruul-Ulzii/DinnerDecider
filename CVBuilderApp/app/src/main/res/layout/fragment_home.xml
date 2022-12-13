@@ -6,28 +6,115 @@
                                                    android:layout_height="match_parent"
                                                    android:gravity="center" android:id="@+id/linearLayout">
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars" android:id="@+id/imageView2"
+            android:src="@mipmap/ic_cover_foreground" android:id="@+id/imageView"
+            android:layout_width="410dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="-100dp"/>
+    <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeColor="@color/primary_dark"
+            app:strokeWidth="1dp"
+            android:src="@mipmap/ic_profile_foreground"
+            android:id="@+id/imageView2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="20dp"/>
+            android:contentDescription="TODO"
+            android:layout_marginStart="40dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+            app:layout_constraintEnd_toStartOf="@+id/textView"/>
     <TextView
-            android:text="Saruul-Ulzii Sampilnorov"
-            android:layout_width="wrap_content"
+            android:text="@string/fullname"
+            android:layout_width="0dp"
+            android:textColor="@color/primary"
+            android:fontFamily="sans-serif-medium"
+            app:fontWeight="600"
+            android:textSize="18sp"
             android:layout_height="wrap_content" android:id="@+id/textView"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" android:layout_marginTop="20dp"
-    />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textView2" app:layout_constraintHorizontal_bias="0.825"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toEndOf="@+id/imageView2"
+            android:layout_marginTop="60dp" android:layout_marginStart="20dp" android:layout_marginBottom="10dp"/>
     <TextView
-            android:text="iOS Developer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView2"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp" app:layout_constraintTop_toBottomOf="@+id/textView"/>
+            android:text="@string/prof"
+            android:layout_width="0dp"
+            android:textColor="@color/primary"
+            android:fontFamily="sans-serif-light"
+            android:layout_height="0dp" android:id="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+            app:layout_constraintStart_toStartOf="@+id/textView" app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.0"/>
     <com.google.android.material.card.MaterialCardView
             android:focusable="true"
-            android:layout_height="200dp" android:layout_width="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp" android:layout_marginTop="30dp"/>
+            android:layout_height="135dp" android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp" android:id="@+id/materialCardView"
+            android:layout_marginBottom="9dp" app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" android:layout_marginTop="10dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/linearLayout2">
+            <TextView
+                    android:text="@string/home_career_note_title"
+                    android:layout_width="0dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_height="wrap_content" android:id="@+id/textView3"
+                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintBottom_toTopOf="@+id/textView5" app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView5" android:layout_marginTop="10dp"/>
+            <TextView
+                    android:justificationMode="inter_word"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/home_career_note_body"
+                    android:layout_width="0dp"
+                    android:id="@+id/textView5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="20dp" android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+            android:focusable="true"
+            android:layout_height="wrap_content" android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp" app:layout_constraintTop_toBottomOf="@id/materialCardView"
+            android:id="@+id/materialCardView2">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/linearLayout21">
+            <TextView
+                    android:text="@string/home_work_exp_title"
+                    android:layout_width="0dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_height="wrap_content" android:id="@+id/textView31"
+                    app:layout_constraintEnd_toEndOf="@+id/textView51"
+                    app:layout_constraintBottom_toTopOf="@+id/textView51"
+                    app:layout_constraintStart_toStartOf="@+id/textView51" app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="20dp"/>
+            <TextView
+                    android:justificationMode="inter_word"
+                    android:text="@string/home_work_exp_body"
+                    android:layout_width="0dp"
+                    android:fontFamily="sans-serif-light"
+                    android:id="@+id/textView51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView31" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="20dp" android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content" android:layout_marginTop="10dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

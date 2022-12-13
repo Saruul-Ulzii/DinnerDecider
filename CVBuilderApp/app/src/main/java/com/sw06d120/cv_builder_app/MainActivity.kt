@@ -1,60 +1,69 @@
 package com.sw06d120.cv_builder_app
 
-import ViewPagerAdapter
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
-import com.sw06d120.cv_builder_app.ui.main.FragmentAboutMe
-import com.sw06d120.cv_builder_app.ui.main.FragmentContact
-import com.sw06d120.cv_builder_app.ui.main.FragmentHome
-import com.sw06d120.cv_builder_app.ui.main.FragmentWork
+import com.sw06d120.cv_builder_app.model.User
+import com.sw06d120.cv_builder_app.ui.main.MainScreen
+import kotlinx.android.synthetic.main.resume_login.*
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var pager: ViewPager // creating object of ViewPager
-    private lateinit var tab: TabLayout // creating object of TabLayout
-    private lateinit var bar: Toolbar // creating object of ToolBar
-
-    private val tabIcons = intArrayOf(
-        R.drawable.baseline_home_black_24dp,
-        R.drawable.baseline_account_circle_black_24dp,
-        R.drawable.baseline_work_black_24dp,
-        R.drawable.baseline_contact_page_black_24dp
-    )
-
+    private var users: ArrayList<User> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.resume_login)
+        supportActionBar?.hide()
 
-        // set the references of the declared objects above
-        pager = findViewById(R.id.viewPager)
-        tab = findViewById(R.id.tabs)
-        bar = findViewById(R.id.toolbar)
+        addDummyUsers()
 
-        // To make our toolbar show the application
-        // we need to give it to the ActionBar
-        setSupportActionBar(bar)
+        txtUsername.setText("jenglish@gmail.com")
+        txtPassword.setText("pass1234")
 
-        // Initializing the ViewPagerAdapter
-        val adapter = ViewPagerAdapter(supportFragmentManager)
+        btnSign.setOnClickListener {
+            var username = txtUsername.text
+            var password = txtPassword.text
 
-        // add fragment to the list
-        adapter.addFragment(FragmentHome(), "Home")
-        adapter.addFragment(FragmentAboutMe(), "Me")
-        adapter.addFragment(FragmentWork(), "Work")
-        adapter.addFragment(FragmentContact(), "Contact")
+            if(username.isNullOrEmpty() || password.isNullOrEmpty()) {
+                Toast.makeText(this, "Please enter valid credentials!", Toast.LENGTH_SHORT).show()
+                txtUsername.requestFocusFromTouch()
+            } else {
+                if(validUser(username = username.toString(), password = password.toString())) {
+                    var resumeActivity = Intent(this, MainScreen::class.java)
+//                    resumeActivity.putExtra("username", username.toString())
+                    startActivity(resumeActivity)
+                } else {
+                    Toast.makeText(this, "User not found. \nPlease enter valid credentials!", Toast.LENGTH_LONG).show()
+                    txtUsername.setText("")
+                    txtPassword.setText("")
+                    txtUsername.requestFocusFromTouch()
+                }
+            }
+        }
+    }
 
-        // Adding the Adapter to the ViewPager
-        pager.adapter = adapter
+    fun validUser(username: String, password: String): Boolean {
+        for(u: User in users) {
+            if(u.userName.equals(username) && u.password.equals(password)) {
+                return true
+            }
+        }
 
-        // bind the viewPager with the TabLayout.
-        tab.setupWithViewPager(pager)
+        return false
+    }
+    fun addDummyUsers() {
+        var user1: User = User("Johny", "English", "jenglish@gmail.com", "pass1234")
+        var user2: User = User("David", "Albert", "dalbert@gmail.com", "pass3456")
+        var user3: User = User("Marks", "Twin", "mtwin@gmail.com", "pass4672")
+        var user4: User = User("Jack", "London", "jlondon@gmail.com", "pass7261")
+        var user5: User = User("Thomas", "Edison", "tedison@gmail.com", "pass5714")
 
-        tab.getTabAt(0)?.setIcon(tabIcons[0]);
-        tab.getTabAt(1)?.setIcon(tabIcons[1]);
-        tab.getTabAt(2)?.setIcon(tabIcons[2]);
-        tab.getTabAt(3)?.setIcon(tabIcons[3]);
+        users.add(user1)
+        users.add(user2)
+        users.add(user3)
+        users.add(user4)
+        users.add(user5)
+
+        print("users: " + users)
     }
 }
