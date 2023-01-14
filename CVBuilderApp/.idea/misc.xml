@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../../../layout/custom_preview.xml" value="0.11116717120753447" />
+        <entry key="app/src/main/res/drawable/input_border.xml" value="0.1715" />
+        <entry key="app/src/main/res/layout/about_me_education_item.xml" value="0.25649922688802085" />
+        <entry key="app/src/main/res/layout/about_me_education_items.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/circle.xml" value="0.15476190476190477" />
+        <entry key="app/src/main/res/layout/contact_item.xml" value="0.27662506103515627" />
+        <entry key="app/src/main/res/layout/fragment_about_me.xml" value="0.32531738281250006" />
+        <entry key="app/src/main/res/layout/fragment_contact.xml" value="0.35877719455295143" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3201581027667984" />
+        <entry key="app/src/main/res/layout/fragment_work.xml" value="0.2731338500976563" />
+        <entry key="app/src/main/res/layout/resume_login.xml" value="0.22336730957031245" />
+        <entry key="app/src/main/res/layout/single_item.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/work_experience_item.xml" value="0.3018380624276621" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK" />
+  <component name="ProjectType">
+    <option name="id" value="jpab" />
+  </component>
+</project>
