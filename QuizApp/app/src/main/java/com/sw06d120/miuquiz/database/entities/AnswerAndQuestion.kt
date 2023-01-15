@@ -9,13 +9,13 @@ data class Question(
 )
 
 @Entity(
-foreignKeys = [
-    ForeignKey(
-        entity = Question::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("answer"),
-        onDelete = ForeignKey.CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = Question::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("answer"),
+            onDelete = ForeignKey.CASCADE
+        )]
 )
 data class Answer(
     @PrimaryKey(autoGenerate = true)
@@ -23,6 +23,7 @@ data class Answer(
     val answer: String,
     val questionId: Long
 )
+
 data class AnswerAndQuestion(
     @Embedded val question: Question,
     @Relation(

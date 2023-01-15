@@ -1,9 +1,7 @@
 package com.sw06d120.miuquiz
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
+import androidx.appcompat.app.AppCompatActivity
 import com.sw06d120.miuquiz.ui.main.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {

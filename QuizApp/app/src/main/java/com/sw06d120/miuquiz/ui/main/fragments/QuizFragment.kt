@@ -1,17 +1,15 @@
 package com.sw06d120.miuquiz.ui.main.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.sw06d120.miuquiz.R
 import com.sw06d120.miuquiz.models.QuizViewModel
-import kotlinx.android.synthetic.main.fragment_quiz.*
-import kotlinx.android.synthetic.main.fragment_quiz.view.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_quiz.view.*
 
@@ -33,7 +31,7 @@ class QuizFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.homeFragment)
         }
         view.next.setOnClickListener {
-            if(viewModel.currentIndex.value!! < 14) {
+            if (viewModel.currentIndex.value!! < 14) {
 //            if(viewModel.currentIndex.value == viewModel.questions.size - 1) {
                 viewModel.goNext()
                 Navigation.findNavController(view).navigate(R.id.quizPrevFragment)

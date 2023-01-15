@@ -5,7 +5,8 @@ import java.io.Serializable
 data class Question(
     val id: Int,
     val question: Int,
-    val choices: Array<Choice>): Serializable {
+    val choices: Array<Choice>
+) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -19,6 +19,7 @@ data class Choice(
     val isCorrect: Boolean,
     val type: String,
 )
+
 data class ChoiceAndQuestion(
     @Embedded val question: Question,
     @Relation(

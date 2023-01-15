@@ -5,7 +5,8 @@ import java.io.Serializable
 data class Choice(
     val answer: String,
     val type: ChoiceType,
-    val isCorrect: Boolean): Serializable
+    val isCorrect: Boolean
+) : Serializable
 
 enum class ChoiceType {
     One,

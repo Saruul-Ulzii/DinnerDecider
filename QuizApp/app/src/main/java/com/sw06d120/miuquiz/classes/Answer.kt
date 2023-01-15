@@ -4,4 +4,5 @@ import java.io.Serializable
 
 data class Answer(
     val questionId: Int,
-    val answer: String): Serializable
+    val answer: String
+) : Serializable

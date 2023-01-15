@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.sw06d120.miuquiz.R
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -37,7 +36,8 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         view.btnStartQuiz.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.quizPrevFragment)}
+            Navigation.findNavController(view).navigate(R.id.quizPrevFragment)
+        }
         return view
     }
 

@@ -7,10 +7,13 @@ import com.sw06d120.miuquiz.database.entities.Question
 interface QuestionDao {
     @Insert
     fun addQuestion(question: Question)
+
     @Query("SELECT * FROM QUESTION ORDER BY id DESC")
-    fun getAllQuestions():List<Question>
+    fun getAllQuestions(): List<Question>
+
     @Update
     fun updateQuestion(question: Question)
+
     @Delete
     fun deleteQuestion(question: Question)
 }

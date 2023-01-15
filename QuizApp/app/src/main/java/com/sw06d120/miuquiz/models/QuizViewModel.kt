@@ -29,7 +29,7 @@ class QuizViewModel : ViewModel() {
     }
 
     fun goNext() {
-        if(_currentIndex.value!! < 15) {
+        if (_currentIndex.value!! < 15) {
             _currentIndex.value = _currentIndex.value!! + 1
         } else {
             _currentIndex.value = 0
