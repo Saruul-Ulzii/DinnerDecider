@@ -1,4 +1,4 @@
-package com.sw06d120.miuquiz.ui.main
+package com.sw06d120.miuquiz.models
 
 import androidx.lifecycle.ViewModel
 
