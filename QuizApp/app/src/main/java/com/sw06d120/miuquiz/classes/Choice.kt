@@ -3,6 +3,7 @@ package com.sw06d120.miuquiz.classes
 import java.io.Serializable
 
 data class Choice(
+    val id: Long,
     val answer: String,
     val type: ChoiceType,
     val isCorrect: Boolean

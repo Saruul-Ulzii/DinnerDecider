@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.sw06d120.miuquiz.R
 import com.sw06d120.miuquiz.models.QuizViewModel
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_quiz.*
+import kotlinx.android.synthetic.main.fragment_result.*
 import kotlinx.android.synthetic.main.fragment_result.view.*
 
 /**
@@ -46,6 +49,9 @@ class ResultFragment : Fragment() {
         view.btnDetailedResult.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.resultDetailedFragment)
         }
+        viewModel.correctAnswerCounter.observe(viewLifecycleOwner, Observer { currentQuestionId ->
+            txtResult.text = viewModel.correctAnswerCounter.value.toString()
+        })
 
         return view
     }

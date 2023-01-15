@@ -94,22 +94,10 @@ class HomeFragment : BaseFragment() {
                 insertedQuestionId = db.questionDao().addQuestion(question3)
 
                 var choice31 = Choice(0, insertedQuestionId, "Answer 3-1", true, ChoiceType.Text.toString())
-                var choice32 = Choice(0, insertedQuestionId, "Answer 3-2", false, ChoiceType.Text.toString())
-                var choice33 = Choice(0, insertedQuestionId, "Answer 3-3", false, ChoiceType.Text.toString())
-                var choice34 = Choice(0, insertedQuestionId, "Answer 3-4", true, ChoiceType.Text.toString())
 
                 db.choiceDao().addChoice(choice31)
-                db.choiceDao().addChoice(choice32)
-                db.choiceDao().addChoice(choice33)
-                db.choiceDao().addChoice(choice34)
 
                 print(db.choiceDao().getAllChoices())
-
-//                var questions = db.questionDao().getAllQuestions()
-//
-//                for (question in questions) {
-//                    var
-//                }
 
                 viewModel.questions = db.questionDao().getQuestionWithChoices()
             }

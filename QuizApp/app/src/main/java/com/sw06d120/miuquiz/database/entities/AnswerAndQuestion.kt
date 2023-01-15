@@ -16,7 +16,7 @@ data class Question(
         ForeignKey(
             entity = Question::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("answer"),
+            childColumns = arrayOf("questionId"),
             onDelete = ForeignKey.CASCADE
         )]
 )
@@ -24,8 +24,11 @@ data class Answer(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val answer: String,
-    val questionId: Long
-)
+    val questionId: Long,
+    val isCorrect: Boolean
+){
+    constructor(answer: com.sw06d120.miuquiz.classes.Answer) : this(0, answer.answer, answer.questionId, answer.isCorrect)
+}
 
 data class AnswerAndQuestion(
     @Embedded val question: Question,

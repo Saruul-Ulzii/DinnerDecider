@@ -7,6 +7,9 @@ import com.sw06d120.miuquiz.classes.Answer
 import com.sw06d120.miuquiz.database.entities.QuestionWithChoices
 
 class QuizViewModel : ViewModel() {
+    private var _correctAnswerCounter = MutableLiveData(0)
+    var correctAnswerCounter: LiveData<Int> = _correctAnswerCounter
+
     var questions: List<QuestionWithChoices> = ArrayList()
     private var answers: List<Answer> = ArrayList()
 
@@ -17,6 +20,7 @@ class QuizViewModel : ViewModel() {
 
     fun reset() {
         _currentIndex.value = 0
+        _correctAnswerCounter.value = 0
     }
 
     fun getAnswers(): MutableLiveData<List<Answer>> {
@@ -57,6 +61,10 @@ class QuizViewModel : ViewModel() {
         } else {
             print("Question not found")
         }
+    }
+
+    fun addCorrectScore() {
+        _correctAnswerCounter.value = _correctAnswerCounter.value!! + 1
     }
 
     fun getCurrentQuestion(): QuestionWithChoices {

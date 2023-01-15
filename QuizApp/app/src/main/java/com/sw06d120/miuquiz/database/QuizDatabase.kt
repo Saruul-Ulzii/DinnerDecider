@@ -21,7 +21,7 @@ import com.sw06d120.miuquiz.database.entities.Quiz
         Choice::class,
         Question::class,
         Quiz::class
-    ], version = 3, exportSchema = false
+    ], version = 5, exportSchema = false
 )
 abstract class QuizDatabase() : RoomDatabase() {
     abstract fun questionDao(): QuestionDao
@@ -43,7 +43,9 @@ abstract class QuizDatabase() : RoomDatabase() {
             context.applicationContext,
             QuizDatabase::class.java,
             "quiz_app.db"
-        ).addCallback(sRoomDatabaseCallback).build()
+        )
+            .fallbackToDestructiveMigration()
+            .addCallback(sRoomDatabaseCallback).build()
 
         private val sRoomDatabaseCallback: Callback = object : Callback() {
             override fun onOpen(db: SupportSQLiteDatabase) {

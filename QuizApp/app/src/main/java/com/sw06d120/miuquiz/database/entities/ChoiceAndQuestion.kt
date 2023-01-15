@@ -13,7 +13,7 @@ import androidx.room.*
 )
 data class Choice(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long,
     val questionId: Long,
     val answer: String,
     val isCorrect: Boolean,

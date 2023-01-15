@@ -20,7 +20,7 @@ import androidx.room.PrimaryKey
 )
 data class Quiz(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long,
     val title: String,
     val description: String,
 //    val answer: String,
