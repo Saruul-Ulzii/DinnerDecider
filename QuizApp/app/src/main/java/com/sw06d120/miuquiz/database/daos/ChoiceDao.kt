@@ -16,4 +16,7 @@ interface ChoiceDao {
 
     @Delete
     fun deleteChoice(choice: Choice)
+
+    @Query("DELETE FROM CHOICE")
+    fun deleteAll()
 }

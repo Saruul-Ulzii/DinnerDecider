@@ -5,7 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import com.sw06d120.miuquiz.R
+import com.sw06d120.miuquiz.models.QuizViewModel
+import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_result.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -20,6 +25,7 @@ class ResultFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val viewModel: QuizViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -32,8 +38,16 @@ class ResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_result, container, false)
+        val view = inflater.inflate(R.layout.fragment_result, container, false)
+        view.btnRetry.setOnClickListener {
+            viewModel.reset()
+            Navigation.findNavController(view).navigate(R.id.quizPrevFragment)
+        }
+        view.btnDetailedResult.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.resultDetailedFragment)
+        }
+
+        return view
     }
 
     companion object {

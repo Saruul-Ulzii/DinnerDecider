@@ -31,8 +31,7 @@ class QuizFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.homeFragment)
         }
         view.next.setOnClickListener {
-            if (viewModel.currentIndex.value!! < 14) {
-//            if(viewModel.currentIndex.value == viewModel.questions.size - 1) {
+            if (viewModel.currentIndex.value!! < viewModel.questions.size - 1) {
                 viewModel.goNext()
                 Navigation.findNavController(view).navigate(R.id.quizPrevFragment)
             } else {
@@ -46,7 +45,8 @@ class QuizFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.currentIndex.observe(this, Observer { currentQuestionId ->
-            txtQuestionId.text = currentQuestionId.toString()
+            txtQuestionId.text = viewModel.getCurrentQuestion().question.question
+            txtAnswers.text = viewModel.getCurrentQuestion().choices.toString()
         })
     }
 

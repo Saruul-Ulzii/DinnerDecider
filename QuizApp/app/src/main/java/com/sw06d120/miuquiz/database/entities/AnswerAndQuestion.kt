@@ -4,9 +4,12 @@ import androidx.room.*
 
 @Entity
 data class Question(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
     val question: String
-)
+){
+    constructor(question: String) : this(0, question)
+}
 
 @Entity(
     foreignKeys = [

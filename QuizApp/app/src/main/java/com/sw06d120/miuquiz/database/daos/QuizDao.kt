@@ -6,7 +6,7 @@ import com.sw06d120.miuquiz.database.entities.Quiz
 @Dao
 interface QuizDao {
     @Insert
-    fun addNote(quiz: Quiz)
+    fun addQuiz(quiz: Quiz)
 
     @Query("SELECT * FROM QUIZ ORDER BY id DESC")
     fun getAllQuizzes(): List<Quiz>
@@ -16,4 +16,7 @@ interface QuizDao {
 
     @Delete
     fun deleteQuiz(quiz: Quiz)
+
+    @Query("DELETE FROM QUIZ")
+    fun deleteAll()
 }

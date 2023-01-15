@@ -7,7 +7,7 @@ import androidx.room.*
         ForeignKey(
             entity = Question::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("question"),
+            childColumns = arrayOf("questionId"),
             onDelete = ForeignKey.CASCADE
         )]
 )
@@ -27,4 +27,13 @@ data class ChoiceAndQuestion(
         entityColumn = "questionId"
     )
     val choice: Choice
+)
+
+data class QuestionWithChoices(
+    @Embedded val question: Question,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "questionId"
+    )
+    val choices: List<Choice>
 )

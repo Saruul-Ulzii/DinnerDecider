@@ -16,4 +16,7 @@ interface AnswerDao {
 
     @Delete
     fun deleteAnswer(answer: Answer)
+
+    @Query("DELETE FROM ANSWER")
+    fun deleteAll()
 }

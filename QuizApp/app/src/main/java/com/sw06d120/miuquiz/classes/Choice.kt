@@ -10,5 +10,6 @@ data class Choice(
 
 enum class ChoiceType {
     One,
-    Many
+    Many,
+    Text
 }
