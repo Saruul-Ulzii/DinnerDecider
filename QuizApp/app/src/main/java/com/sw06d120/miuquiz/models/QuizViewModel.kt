@@ -1,6 +1,5 @@
 package com.sw06d120.miuquiz.models
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,10 +31,29 @@ class QuizViewModel : ViewModel() {
             .orElse(null)
 
         if(question != null) {
-            var question = answers.stream()
+            var answer = answers.stream()
                 .filter { a -> a.questionId == questionId }
                 .findFirst()
                 .orElse(null)
+
+            if(answer != null) {
+                print("Answered already")
+            } else {
+                var correctChoices = question.choices.stream()
+                    .filter { c -> c.isCorrect }
+                    .findAny()
+                    .orElse(null)
+
+                print(correctChoices)
+
+                //SELECTION OPTION
+                if(question.choices.size > 0) {
+//                    var answer = Answer(questionId, answer, question.choices.)
+                } else {
+//                    var answer = Answer(questionId, answer, question.question.co)
+
+                }
+            }
         } else {
             print("Question not found")
         }
