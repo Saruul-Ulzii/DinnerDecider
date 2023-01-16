@@ -1,7 +1,9 @@
 package com.sw06d120.miuquiz.ui.main.fragments
 
 import android.graphics.drawable.GradientDrawable.Orientation
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +59,7 @@ class ResultDetailedFragment : Fragment() {
     fun addQuestionSection(question: QuestionWithChoices) {
         val context = activity?.applicationContext!!
 
-        var choices = question.choices
+        val choices = question.choices
         var answers = getAnswersByQuestionsId(question.question.id)
 
         val questionSection = CardView(context)
@@ -83,6 +85,22 @@ class ResultDetailedFragment : Fragment() {
             choiceQuestion.text = choice.answer
             choiceQuestion.textSize = 20f
             answerInnerLayout.addView(choiceQuestion)
+
+            if(answers.size > 0) {
+                var answered = answers.filter { answer: Answer -> answer.answer.contains(choice.id.toString()) }.orEmpty()
+
+                if(answered.size > 0) {
+                    val answerRightLayout = LinearLayout(context)
+                    answerRightLayout.orientation = LinearLayout.HORIZONTAL
+                    answerRightLayout.gravity = Gravity.END
+                    answerInnerLayout.addView(answerRightLayout)
+
+                    val answeredChoice = TextView(context)
+                    answeredChoice.text = "<="
+                    answeredChoice.textSize = 20f
+                    answerRightLayout.addView(answeredChoice)
+                }
+            }
 
             questionInnerLayout.addView(answerInnerLayout)
         }

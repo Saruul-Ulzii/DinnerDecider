@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_quiz.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.*
 
 class QuizFragment : Fragment() {
 
@@ -54,7 +53,6 @@ class QuizFragment : Fragment() {
                 Navigation.findNavController(view).navigate(R.id.resultFragment)
             }
         }
-        print("entered new quiz!")
         return view
     }
 
@@ -76,7 +74,6 @@ class QuizFragment : Fragment() {
         when (choiceType) {
             ChoiceType.One.toString() -> {
                 for (choice in currentQuestion?.choices!!) {
-                    print("ONE")
                     val radioButton = RadioButton(context)
                     radioButton.text = choice.answer
                     radioButton.tag = choice.id
@@ -86,7 +83,6 @@ class QuizFragment : Fragment() {
                 layoutAnswers.addView(radioButtonGroup)
             }
             ChoiceType.Many.toString() -> {
-                print("MANY")
                 for (choice in currentQuestion?.choices!!) {
                     val checkBox = CheckBox(context)
                     checkBox.text = choice.answer
@@ -100,6 +96,7 @@ class QuizFragment : Fragment() {
                 val textInput = EditText(context)
                 textInput.height = 200
                 textInput.tag = currentQuestion?.choices?.get(0)?.answer ?: "ANSWER MUST BE NOT NULL"
+                textInput.id = currentQuestion?.choices?.get(0)?.id?.toInt() ?: 0
                 layoutAnswers.addView(textInput)
             }
         }
@@ -142,22 +139,24 @@ class QuizFragment : Fragment() {
                     }
                 }
 
-                currentAnswer = Answer(
-                    currentQuestion?.question?.id!!,
-                    answerFormatted,
-                    isCorrectAnswer(answerFormatted)
-                )
+                if(answerFormatted != "") {
+                    currentAnswer = Answer(
+                        currentQuestion?.question?.id!!,
+                        answerFormatted,
+                        isCorrectAnswer(answerFormatted)
+                    )
+                }
             }
             ChoiceType.Text.toString() -> {
                 for (answerView in answerViews) {
                     if (answerView is EditText) {
                         val answerEditText = answerView as EditText
                         val answerText = answerEditText.tag.toString()
-                        if(answerEditText.text.trim().toString().lowercase().equals(answerText.lowercase())) {
+                        if(answerText != "" && answerEditText.text.trim().toString().lowercase().equals(answerText.lowercase())) {
                             viewModel.addCorrectScore()
                             currentAnswer = Answer(
                                 currentQuestion?.question?.id!!,
-                                answerText,
+                                answerEditText.id.toString(),
                                 true
                             )
                         }
