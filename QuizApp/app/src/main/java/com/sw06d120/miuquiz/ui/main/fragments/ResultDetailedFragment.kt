@@ -12,13 +12,11 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.sw06d120.miuquiz.R
 import com.sw06d120.miuquiz.classes.Answer
 import com.sw06d120.miuquiz.database.entities.QuestionWithChoices
 import com.sw06d120.miuquiz.models.QuizViewModel
-import com.sw06d120.miuquiz.models.ResultDetailedViewModel
 import kotlinx.android.synthetic.main.fragment_result_detailed.*
 import kotlinx.android.synthetic.main.fragment_result_detailed.view.*
 
@@ -28,7 +26,6 @@ class ResultDetailedFragment : Fragment() {
         fun newInstance() = ResultDetailedFragment()
     }
 
-    private lateinit var viewModel: ResultDetailedViewModel
     private val quizViewModel: QuizViewModel by activityViewModels()
 
     private var questions: List<QuestionWithChoices>? = null
@@ -184,8 +181,6 @@ class ResultDetailedFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ResultDetailedViewModel::class.java)
-        // TODO: Use the ViewModel
         createAnalysisView()
     }
 }
