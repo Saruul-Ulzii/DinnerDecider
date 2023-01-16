@@ -11,9 +11,12 @@
 
     <Button
         android:id="@+id/btnStartQuiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:background="@drawable/layout_border"
+        android:fontFamily="@font/oswald_regular"
         android:text="@string/start_quiz"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

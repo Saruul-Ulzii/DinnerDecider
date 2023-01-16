@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -46,6 +47,8 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+        view.btnStartQuiz.typeface =
+            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
         view.btnStartQuiz.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.quizPrevFragment)
         }
@@ -63,169 +66,165 @@ class HomeFragment : BaseFragment() {
                 db.answerDao().deleteAll()
                 db.quizDao().deleteAll()
 
-                var question1 = Question("Kotlin question 1")
+                var question1 = Question("What is a correct syntax to output \"Hello World\" in Kotlin?")
                 var insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                var choice1 = Choice(0, insertedQuestionId, "Answer 1", false, ChoiceType.One.toString())
-                var choice2 = Choice(0, insertedQuestionId, "Answer 2", true, ChoiceType.One.toString())
-                var choice3 = Choice(0, insertedQuestionId, "Answer 3", false, ChoiceType.One.toString())
-                var choice4 = Choice(0, insertedQuestionId, "Answer 4", false, ChoiceType.One.toString())
+                var choice1 = Choice(0, insertedQuestionId, "println(\"Hello World\")", true, ChoiceType.One.toString())
+                var choice2 = Choice(0, insertedQuestionId, "System.out.printline(\"Hello World\")", false, ChoiceType.One.toString())
+                var choice3 = Choice(0, insertedQuestionId, "Console.WriteLine(\"Hello World\");", false, ChoiceType.One.toString())
+                var choice4 = Choice(0, insertedQuestionId, "cout << \"Hello World\";", false, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Kotlin question 2")
+                question1 = Question("How do you insert COMMENTS in Kotlin code?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 2-1", true, ChoiceType.Many.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 2-2", false, ChoiceType.Many.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 2-3", false, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 2-4", true, ChoiceType.Many.toString())
+                choice1 = Choice(0, insertedQuestionId, "# This is a comment", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "/* This is a comment", false, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "-- This is a comment", false, ChoiceType.One.toString())
+                choice4 = Choice(0, insertedQuestionId, "// This is a comment  ", true, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                val question3 = Question("Kotlin question 3")
+                val question3 = Question("Kotlin was developed by ___")
                 insertedQuestionId = db.questionDao().addQuestion(question3)
 
-                val choice31 = Choice(0, insertedQuestionId, "Answer 3-1", true, ChoiceType.Text.toString())
+                val choice31 = Choice(0, insertedQuestionId, "JetBrains", true, ChoiceType.Text.toString())
                 db.choiceDao().addChoice(choice31)
 
-                question1 = Question("Kotlin question 4")
+                question1 = Question("Which keyword is used to declare a function?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 4-1", false, ChoiceType.One.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 4-2", false, ChoiceType.One.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 4-3", false, ChoiceType.One.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 4-4", true, ChoiceType.One.toString())
+                choice1 = Choice(0, insertedQuestionId, "define", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "fun  ", true, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "func", false, ChoiceType.One.toString())
+                choice4 = Choice(0, insertedQuestionId, "function", false, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Kotlin question 5")
+                question1 = Question("In Kotlin, code statements must end with a semicolon (;)")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 5-1", false, ChoiceType.Many.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 5-2", false, ChoiceType.Many.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 5-3", false, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 5-4", true, ChoiceType.Many.toString())
+                choice1 = Choice(0, insertedQuestionId, "True", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "False", true, ChoiceType.One.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+
+                question1 = Question("Kotlin is a statically-typed programming language which runs on the ___")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "JVM", true, ChoiceType.Text.toString())
+                db.choiceDao().addChoice(choice1)
+
+                question1 = Question("Kotlin is interoperable with Java because it uses JVM bytecode.")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Yes", true, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "No", false, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "Can be yes or no", false, ChoiceType.One.toString())
+                choice4 = Choice(0, insertedQuestionId, "Can not say", false, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Kotlin question 6")
+                question1 = Question("How can you declare a variable in Kotlin?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 6-1", true, ChoiceType.Text.toString())
-                db.choiceDao().addChoice(choice1)
-
-                question1 = Question("Kotlin question 7")
-                insertedQuestionId = db.questionDao().addQuestion(question1)
-
-                choice1 = Choice(0, insertedQuestionId, "Answer 7-1", false, ChoiceType.One.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 7-2", false, ChoiceType.One.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 7-3", false, ChoiceType.One.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 7-4", true, ChoiceType.One.toString())
+                choice1 = Choice(0, insertedQuestionId, "var my_var: Char", true, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "var Char : my_var", false, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "my_var: Char", false, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "val my_var: Char", true, ChoiceType.Many.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Kotlin question 8")
+                question1 = Question("All classes in Kotlin classes are by default?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 8-1", false, ChoiceType.Many.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 8-2", false, ChoiceType.Many.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 8-3", false, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 8-4", true, ChoiceType.Many.toString())
+                choice1 = Choice(0, insertedQuestionId, "public", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "sealed", false, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "abstract", false, ChoiceType.One.toString())
+                choice4 = Choice(0, insertedQuestionId, "final", true, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Kotlin question 9")
+                question1 = Question("Which are the Kotlin keywords?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 9-1", false, ChoiceType.One.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 9-2", false, ChoiceType.One.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 9-3", false, ChoiceType.One.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 9-4", true, ChoiceType.One.toString())
+                choice1 = Choice(0, insertedQuestionId, "switch", false, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "when", true, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "arrayOf", true, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "LinkedTreeMap", false, ChoiceType.Many.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Kotlin question 10")
+                question1 = Question("How many types of constructors available in Kotlin?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 10-1", false, ChoiceType.Many.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 10-2", true, ChoiceType.Many.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 10-3", false, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 10-4", true, ChoiceType.Many.toString())
+                choice1 = Choice(0, insertedQuestionId, "more than 1", true, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "4", false, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "2", true, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "11", false, ChoiceType.Many.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Kotlin question 11")
+                question1 = Question("___ feature allows removing the risk of occurrence of NullPointerException in real time.")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 11-1", true, ChoiceType.Many.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 11-2", false, ChoiceType.Many.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 11-3", true, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 11-4", false, ChoiceType.Many.toString())
+                choice1 = Choice(0, insertedQuestionId, "Null Safety", true, ChoiceType.Text.toString())
+                db.choiceDao().addChoice(choice1)
+
+                question1 = Question("Which of th following is used to compare two strings in Kotlin?")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Using == operator", true, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "<", false, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "Using compareTo() extension function", true, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "None of the above", false, ChoiceType.Many.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Kotlin question 12")
+                question1 = Question("Elvis Operator is used for handling null expectations in Kotlin.")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 12-1", true, ChoiceType.Text.toString())
-                db.choiceDao().addChoice(choice1)
-
-                question1 = Question("Kotlin question 13")
-                insertedQuestionId = db.questionDao().addQuestion(question1)
-
-                choice1 = Choice(0, insertedQuestionId, "Answer 5-1", false, ChoiceType.Many.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 5-2", false, ChoiceType.Many.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 5-3", false, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "Answer 5-4", true, ChoiceType.Many.toString())
-
-                db.choiceDao().addChoice(choice1)
-                db.choiceDao().addChoice(choice2)
-                db.choiceDao().addChoice(choice3)
-                db.choiceDao().addChoice(choice4)
-
-                question1 = Question("Kotlin question 14")
-                insertedQuestionId = db.questionDao().addQuestion(question1)
-
-                choice1 = Choice(0, insertedQuestionId, "Answer 14-1", false, ChoiceType.One.toString())
-                choice2 = Choice(0, insertedQuestionId, "Answer 14-2", false, ChoiceType.One.toString())
-                choice3 = Choice(0, insertedQuestionId, "Answer 14-3", true, ChoiceType.One.toString())
+                choice1 = Choice(0, insertedQuestionId, "FALSE", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "TRUE", true, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "Can be true or false", false, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
 
-                question1 = Question("Kotlin question 15")
+                question1 = Question("What is kotlin file extension? Write it. (ex: exe, pdf)")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Answer 15-1", true, ChoiceType.Text.toString())
+                choice1 = Choice(0, insertedQuestionId, "kt", true, ChoiceType.Text.toString())
                 db.choiceDao().addChoice(choice1)
 
                 viewModel.questions = db.questionDao().getQuestionWithChoices()

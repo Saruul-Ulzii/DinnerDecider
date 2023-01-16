@@ -1,5 +1,7 @@
 package com.sw06d120.miuquiz.ui.main.fragments
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.allViews
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -20,6 +23,7 @@ import com.sw06d120.miuquiz.classes.ChoiceType
 import com.sw06d120.miuquiz.database.QuizDatabase
 import com.sw06d120.miuquiz.database.entities.QuestionWithChoices
 import com.sw06d120.miuquiz.models.QuizViewModel
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_quiz.view.*
 import kotlinx.coroutines.GlobalScope
@@ -58,6 +62,9 @@ class QuizFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        txtQuestionId.textSize = 35f
+        txtQuestionId.typeface =
+            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
         viewModel.currentIndex.observe(viewLifecycleOwner, Observer { currentQuestionId ->
             currentQuestion = viewModel.getCurrentQuestion()
             txtQuestionId.text = currentQuestion!!.question.question
@@ -71,12 +78,42 @@ class QuizFragment : Fragment() {
 
         val radioButtonGroup = RadioGroup(context)
 
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_enabled), // enabled
+            intArrayOf(-android.R.attr.state_enabled), // disabled
+            intArrayOf(-android.R.attr.state_checked), // unchecked
+            intArrayOf(android.R.attr.state_pressed)  // pressed
+        )
+
+        val colors = intArrayOf(
+            Color.BLACK,
+            Color.RED,
+            Color.GREEN,
+            Color.BLUE
+        )
+
+//        val colorList = ColorStateList(states, colors)
+        val colorList = ColorStateList(
+            arrayOf(
+                intArrayOf(-android.R.attr.state_enabled),  // Disabled
+                intArrayOf(android.R.attr.state_enabled)    // Enabled
+            ),
+            intArrayOf(
+                0xFF344240.toInt(),
+                0xFF009688.toInt()
+            )
+        )
+
         when (choiceType) {
             ChoiceType.One.toString() -> {
                 for (choice in currentQuestion?.choices!!) {
                     val radioButton = RadioButton(context)
                     radioButton.text = choice.answer
                     radioButton.tag = choice.id
+                    radioButton.buttonTintList = colorList
+                    radioButton.textSize = 20f
+                    radioButton.typeface =
+                        activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
                     radioButtonGroup.addView(radioButton)
                 }
 
@@ -87,6 +124,10 @@ class QuizFragment : Fragment() {
                     val checkBox = CheckBox(context)
                     checkBox.text = choice.answer
                     checkBox.tag = choice.id
+                    checkBox.textSize = 20f
+                    checkBox.buttonTintList = colorList
+                    checkBox.typeface =
+                        activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
                     checkBox.isChecked = false
 
                     layoutAnswers.addView(checkBox)
@@ -96,6 +137,11 @@ class QuizFragment : Fragment() {
                 val textInput = EditText(context)
                 textInput.height = 200
                 textInput.tag = currentQuestion?.choices?.get(0)?.answer ?: "ANSWER MUST BE NOT NULL"
+                textInput.textSize = 20f
+                textInput.hint = "Write your answer"
+                textInput.setHintTextColor(colorList)
+                textInput.typeface =
+                    activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
                 textInput.id = currentQuestion?.choices?.get(0)?.id?.toInt() ?: 0
                 layoutAnswers.addView(textInput)
             }

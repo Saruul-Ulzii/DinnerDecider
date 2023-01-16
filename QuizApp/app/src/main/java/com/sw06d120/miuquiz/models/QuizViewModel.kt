@@ -19,6 +19,7 @@ class QuizViewModel : ViewModel() {
     fun reset() {
         _currentIndex.value = 0
         _correctAnswerCounter.value = 0
+        answers = ArrayList()
     }
 
     fun addAnswer(answer: Answer) {

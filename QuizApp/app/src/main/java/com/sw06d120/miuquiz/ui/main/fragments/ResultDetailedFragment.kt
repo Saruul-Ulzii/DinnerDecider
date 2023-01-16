@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.sw06d120.miuquiz.classes.Answer
 import com.sw06d120.miuquiz.database.entities.QuestionWithChoices
 import com.sw06d120.miuquiz.models.QuizViewModel
 import com.sw06d120.miuquiz.models.ResultDetailedViewModel
+import kotlinx.android.synthetic.main.fragment_result.*
 import kotlinx.android.synthetic.main.fragment_result_detailed.*
 import kotlinx.android.synthetic.main.fragment_result_detailed.view.*
 
@@ -69,6 +71,8 @@ class ResultDetailedFragment : Fragment() {
 
         val txtQuestion = TextView(context)
         txtQuestion.textSize = 40f
+        txtQuestion.typeface =
+            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
         txtQuestion.text = question.question.question
         questionInnerLayout.addView(txtQuestion)
 
@@ -79,11 +83,15 @@ class ResultDetailedFragment : Fragment() {
             val checkPart = TextView(context)
             checkPart.text = choice.isCorrect.toString()
             checkPart.textSize = 20f
+            checkPart.typeface =
+                activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
             answerInnerLayout.addView(checkPart)
 
             val choiceQuestion = TextView(context)
             choiceQuestion.text = choice.answer
             choiceQuestion.textSize = 20f
+            choiceQuestion.typeface =
+                activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
             answerInnerLayout.addView(choiceQuestion)
 
             if(answers.size > 0) {
@@ -98,6 +106,8 @@ class ResultDetailedFragment : Fragment() {
                     val answeredChoice = TextView(context)
                     answeredChoice.text = "<="
                     answeredChoice.textSize = 20f
+                    answeredChoice.typeface =
+                        activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
                     answerRightLayout.addView(answeredChoice)
                 }
             }

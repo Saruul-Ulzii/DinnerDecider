@@ -1,15 +1,18 @@
 package com.sw06d120.miuquiz.ui.main.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.sw06d120.miuquiz.R
 import com.sw06d120.miuquiz.models.QuizViewModel
+import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_result.*
 import kotlinx.android.synthetic.main.fragment_result.view.*
 
@@ -35,6 +38,28 @@ class ResultFragment : Fragment() {
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        txtTotalCount.textSize = 40f
+        txtTotalCount.typeface =
+            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
+        txtCorrectCount.textSize = 40f
+        txtCorrectCount.typeface =
+            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
+        txtCorrectCount.setTextColor(Color.parseColor("#00796B"))
+
+        txtWrongCount.textSize = 40f
+        txtWrongCount.typeface =
+            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
+        txtWrongCount.setTextColor(Color.parseColor("#FFE64A19"))
+
+        btnRetry.typeface =
+            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
+
+        btnDetailedResult.typeface =
+            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,8 +73,9 @@ class ResultFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.resultDetailedFragment)
         }
         viewModel.correctAnswerCounter.observe(viewLifecycleOwner, Observer { currentQuestionId ->
-            txtTotalCount.text = viewModel.questions.size.toString()
-            txtCorrectCount.text = viewModel.correctAnswerCounter.value.toString()
+            txtTotalCount.text = "Total: " + viewModel.questions.size.toString()
+            txtCorrectCount.text = "Correct: " + viewModel.correctAnswerCounter.value.toString()
+            txtWrongCount.text = "Wrong: " + (viewModel.questions.size - viewModel.correctAnswerCounter.value!!).toString()
         })
 
         return view
