@@ -173,6 +173,7 @@ class QuizFragment : Fragment() {
                         currentAnswer!!
                     )
                     QuizDatabase(it).answerDao().addAnswer(currentAnswerEntity)
+                    viewModel.addAnswer(currentAnswer!!)
                 }
             }
         }
@@ -194,11 +195,9 @@ class QuizFragment : Fragment() {
                 return false
             }
             ChoiceType.Many.toString() -> {
-                print("MANY")
                 var answers = selectedChoice.split(";")
                 var correctCount = 0
 
-//              INPUT = 1;2;
                 for(answer in answers) {
                     if(answer != "") {
                         for (choice in currentQuestion?.choices!!) {
@@ -216,12 +215,6 @@ class QuizFragment : Fragment() {
                 } else {
                     return false
                 }
-            }
-            ChoiceType.Text.toString() -> {
-                print("TEXT")
-//                var textInput = EditText(context)
-//                textInput.height = 200
-//                layoutAnswers.addView(textInput)
             }
         }
         return false

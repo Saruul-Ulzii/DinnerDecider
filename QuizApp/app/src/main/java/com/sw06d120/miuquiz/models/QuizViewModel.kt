@@ -11,21 +11,18 @@ class QuizViewModel : ViewModel() {
     var correctAnswerCounter: LiveData<Int> = _correctAnswerCounter
 
     var questions: List<QuestionWithChoices> = ArrayList()
-    private var answers: List<Answer> = ArrayList()
+    var answers: List<Answer> = ArrayList()
 
     private var _currentIndex = MutableLiveData(0)
     var currentIndex: LiveData<Int> = _currentIndex
-
-    private var answersLiveData = MutableLiveData<List<Answer>>()
 
     fun reset() {
         _currentIndex.value = 0
         _correctAnswerCounter.value = 0
     }
 
-    fun getAnswers(): MutableLiveData<List<Answer>> {
-        answersLiveData.value = answers
-        return answersLiveData
+    fun addAnswer(answer: Answer) {
+        answers = answers.plus(answer)
     }
 
     fun addCorrectScore() {

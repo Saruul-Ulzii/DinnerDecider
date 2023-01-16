@@ -63,40 +63,170 @@ class HomeFragment : BaseFragment() {
                 db.answerDao().deleteAll()
                 db.quizDao().deleteAll()
 
-                val question1 = Question("Kotlin question 1")
+                var question1 = Question("Kotlin question 1")
                 var insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                val choice1 = Choice(0, insertedQuestionId, "Answer 1", false, ChoiceType.One.toString())
-                val choice2 = Choice(0, insertedQuestionId, "Answer 2", true, ChoiceType.One.toString())
-                val choice3 = Choice(0, insertedQuestionId, "Answer 3", false, ChoiceType.One.toString())
-                val choice4 = Choice(0, insertedQuestionId, "Answer 4", false, ChoiceType.One.toString())
+                var choice1 = Choice(0, insertedQuestionId, "Answer 1", false, ChoiceType.One.toString())
+                var choice2 = Choice(0, insertedQuestionId, "Answer 2", true, ChoiceType.One.toString())
+                var choice3 = Choice(0, insertedQuestionId, "Answer 3", false, ChoiceType.One.toString())
+                var choice4 = Choice(0, insertedQuestionId, "Answer 4", false, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                val question2 = Question("Kotlin question 2")
-                insertedQuestionId = db.questionDao().addQuestion(question2)
+                question1 = Question("Kotlin question 2")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                val choice21 = Choice(0, insertedQuestionId, "Answer 2-1", true, ChoiceType.Many.toString())
-                val choice22 = Choice(0, insertedQuestionId, "Answer 2-2", false, ChoiceType.Many.toString())
-                val choice23 = Choice(0, insertedQuestionId, "Answer 2-3", false, ChoiceType.Many.toString())
-                val choice24 = Choice(0, insertedQuestionId, "Answer 2-4", true, ChoiceType.Many.toString())
+                choice1 = Choice(0, insertedQuestionId, "Answer 2-1", true, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 2-2", false, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 2-3", false, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 2-4", true, ChoiceType.Many.toString())
 
-                db.choiceDao().addChoice(choice21)
-                db.choiceDao().addChoice(choice22)
-                db.choiceDao().addChoice(choice23)
-                db.choiceDao().addChoice(choice24)
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
 
                 val question3 = Question("Kotlin question 3")
                 insertedQuestionId = db.questionDao().addQuestion(question3)
 
                 val choice31 = Choice(0, insertedQuestionId, "Answer 3-1", true, ChoiceType.Text.toString())
-
                 db.choiceDao().addChoice(choice31)
 
-                print(db.choiceDao().getAllChoices())
+                question1 = Question("Kotlin question 4")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 4-1", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 4-2", false, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 4-3", false, ChoiceType.One.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 4-4", true, ChoiceType.One.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
+
+                question1 = Question("Kotlin question 5")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 5-1", false, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 5-2", false, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 5-3", false, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 5-4", true, ChoiceType.Many.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
+
+                question1 = Question("Kotlin question 6")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 6-1", true, ChoiceType.Text.toString())
+                db.choiceDao().addChoice(choice1)
+
+                question1 = Question("Kotlin question 7")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 7-1", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 7-2", false, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 7-3", false, ChoiceType.One.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 7-4", true, ChoiceType.One.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
+
+                question1 = Question("Kotlin question 8")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 8-1", false, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 8-2", false, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 8-3", false, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 8-4", true, ChoiceType.Many.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
+
+                question1 = Question("Kotlin question 9")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 9-1", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 9-2", false, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 9-3", false, ChoiceType.One.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 9-4", true, ChoiceType.One.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
+
+                question1 = Question("Kotlin question 10")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 10-1", false, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 10-2", true, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 10-3", false, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 10-4", true, ChoiceType.Many.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
+
+                question1 = Question("Kotlin question 11")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 11-1", true, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 11-2", false, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 11-3", true, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 11-4", false, ChoiceType.Many.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
+
+                question1 = Question("Kotlin question 12")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 12-1", true, ChoiceType.Text.toString())
+                db.choiceDao().addChoice(choice1)
+
+                question1 = Question("Kotlin question 13")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 5-1", false, ChoiceType.Many.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 5-2", false, ChoiceType.Many.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 5-3", false, ChoiceType.Many.toString())
+                choice4 = Choice(0, insertedQuestionId, "Answer 5-4", true, ChoiceType.Many.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+                db.choiceDao().addChoice(choice4)
+
+                question1 = Question("Kotlin question 14")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 14-1", false, ChoiceType.One.toString())
+                choice2 = Choice(0, insertedQuestionId, "Answer 14-2", false, ChoiceType.One.toString())
+                choice3 = Choice(0, insertedQuestionId, "Answer 14-3", true, ChoiceType.One.toString())
+
+                db.choiceDao().addChoice(choice1)
+                db.choiceDao().addChoice(choice2)
+                db.choiceDao().addChoice(choice3)
+
+                question1 = Question("Kotlin question 15")
+                insertedQuestionId = db.questionDao().addQuestion(question1)
+
+                choice1 = Choice(0, insertedQuestionId, "Answer 15-1", true, ChoiceType.Text.toString())
+                db.choiceDao().addChoice(choice1)
 
                 viewModel.questions = db.questionDao().getQuestionWithChoices()
             }
