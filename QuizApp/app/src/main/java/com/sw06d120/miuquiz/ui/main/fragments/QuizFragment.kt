@@ -89,8 +89,8 @@ class QuizFragment : Fragment() {
 
         val colorList = ColorStateList(
             arrayOf(
-                intArrayOf(-android.R.attr.state_enabled),  // Disabled
-                intArrayOf(android.R.attr.state_enabled)    // Enabled
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf(android.R.attr.state_enabled)
             ),
             intArrayOf(
                 0xFF344240.toInt(),
@@ -107,9 +107,6 @@ class QuizFragment : Fragment() {
                     radioButton.buttonTintList = colorList
                     radioButton.textSize = 20f
                     radioButton.gravity = Gravity.CENTER_VERTICAL
-//                    radioButton.height = LayoutParams.WRAP_CONTENT
-//                    radioButton.buttonDrawable = StateListDrawable()
-//                    radioButton.buttonDrawable = null
                     radioButton.typeface =
                         activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
                     radioButtonGroup.addView(radioButton)
@@ -124,9 +121,6 @@ class QuizFragment : Fragment() {
                     checkBox.tag = choice.id
                     checkBox.textSize = 20f
                     checkBox.gravity = Gravity.CENTER_VERTICAL
-//                    checkBox.height = LayoutParams.WRAP_CONTENT
-//                    checkBox.buttonDrawable = StateListDrawable()
-//                    checkBox.buttonDrawable = null
                     checkBox.buttonTintList = colorList
                     checkBox.typeface =
                         activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
