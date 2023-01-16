@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_quiz.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 class QuizFragment : Fragment() {
 
@@ -67,10 +68,10 @@ class QuizFragment : Fragment() {
     }
 
     fun craftAnswers() {
-        var choiceType = currentQuestion?.choices?.get(0)?.type
-        var context = activity?.applicationContext
+        val choiceType = currentQuestion?.choices?.get(0)?.type
+        val context = activity?.applicationContext
 
-        var radioButtonGroup = RadioGroup(context)
+        val radioButtonGroup = RadioGroup(context)
 
         when (choiceType) {
             ChoiceType.One.toString() -> {
@@ -96,8 +97,9 @@ class QuizFragment : Fragment() {
                 }
             }
             ChoiceType.Text.toString() -> {
-                var textInput = EditText(context)
+                val textInput = EditText(context)
                 textInput.height = 200
+                textInput.tag = currentQuestion?.choices?.get(0)?.answer ?: "ANSWER MUST BE NOT NULL"
                 layoutAnswers.addView(textInput)
             }
         }
@@ -105,20 +107,20 @@ class QuizFragment : Fragment() {
 
     fun checkAnswer() {
         val choiceType = currentQuestion?.choices?.get(0)?.type
+        val answerViews = layoutAnswers.allViews
 
         when (choiceType) {
             ChoiceType.One.toString() -> {
-                var answerViews = layoutAnswers.allViews
-
                 for (answerView in answerViews) {
                     if (answerView is RadioGroup) {
-                        var answerRadioGroup = answerView as RadioGroup
+                        val answerRadioGroup = answerView as RadioGroup
                         for (radioButton in answerRadioGroup.children) {
                             if ((radioButton as RadioButton).isChecked) {
+                                val choiceId = radioButton.tag.toString()
                                 currentAnswer = Answer(
                                     currentQuestion?.question?.id!!,
-                                    radioButton.tag.toString(),
-                                    isCorrectAnswer(radioButton.tag.toString())
+                                    choiceId,
+                                    isCorrectAnswer(choiceId)
                                 )
                                 break
                             }
@@ -129,19 +131,45 @@ class QuizFragment : Fragment() {
             }
 
             ChoiceType.Many.toString() -> {
+                var answerFormatted = "" //1;3;5
+                for (answerView in answerViews) {
+                    if (answerView is CheckBox) {
+                        val answerCheckBox = answerView as CheckBox
+                        if (answerView.isChecked) {
+                            val choiceId = answerCheckBox.tag.toString()
+                            answerFormatted += "$choiceId;";
+                        }
+                    }
+                }
 
+                currentAnswer = Answer(
+                    currentQuestion?.question?.id!!,
+                    answerFormatted,
+                    isCorrectAnswer(answerFormatted)
+                )
             }
             ChoiceType.Text.toString() -> {
-
+                for (answerView in answerViews) {
+                    if (answerView is EditText) {
+                        val answerEditText = answerView as EditText
+                        val answerText = answerEditText.tag.toString()
+                        if(answerEditText.text.trim().toString().lowercase().equals(answerText.lowercase())) {
+                            viewModel.addCorrectScore()
+                            currentAnswer = Answer(
+                                currentQuestion?.question?.id!!,
+                                answerText,
+                                true
+                            )
+                        }
+                    }
+                }
             }
         }
 
         if (currentAnswer != null) {
-            print("CURRENT ANSWER")
-            print(currentAnswer)
             GlobalScope.launch {
                 context?.let {
-                    var currentAnswerEntity = com.sw06d120.miuquiz.database.entities.Answer(
+                    val currentAnswerEntity = com.sw06d120.miuquiz.database.entities.Answer(
                         currentAnswer!!
                     )
                     QuizDatabase(it).answerDao().addAnswer(currentAnswerEntity)
@@ -151,6 +179,8 @@ class QuizFragment : Fragment() {
     }
 
     fun isCorrectAnswer(selectedChoice: String): Boolean {
+        if(selectedChoice.equals("")) return false
+
         val choiceType = currentQuestion?.choices?.get(0)?.type
 
         when (choiceType) {
@@ -165,12 +195,27 @@ class QuizFragment : Fragment() {
             }
             ChoiceType.Many.toString() -> {
                 print("MANY")
-//                for (choice in currentQuestion?.choices!!) {
-//                    if(choice.isCorrect && choice.answer == selectedChoice) {
-//                        return true
-//                    }
-//                }
-//                return false
+                var answers = selectedChoice.split(";")
+                var correctCount = 0
+
+//              INPUT = 1;2;
+                for(answer in answers) {
+                    if(answer != "") {
+                        for (choice in currentQuestion?.choices!!) {
+                            if(choice.isCorrect && choice.id.equals(answer.toLong())) {
+                                correctCount++
+                                break
+                            }
+                        }
+                    }
+                }
+
+                if(correctCount == answers.size - 1) {
+                    viewModel.addCorrectScore()
+                    return true
+                } else {
+                    return false
+                }
             }
             ChoiceType.Text.toString() -> {
                 print("TEXT")

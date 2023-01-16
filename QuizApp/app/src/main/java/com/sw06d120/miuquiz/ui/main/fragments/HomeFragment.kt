@@ -57,43 +57,42 @@ class HomeFragment : BaseFragment() {
 
     fun populateDatabase() {
         GlobalScope.launch {
-            context?.let {
-                var db = QuizDatabase(it)
+            context?.let {val db = QuizDatabase(it)
                 db.questionDao().deleteAll()
                 db.choiceDao().deleteAll()
                 db.answerDao().deleteAll()
                 db.quizDao().deleteAll()
 
-                var question1 = Question("Kotlin question 1")
+                val question1 = Question("Kotlin question 1")
                 var insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                var choice1 = Choice(0, insertedQuestionId, "Answer 1", false, ChoiceType.One.toString())
-                var choice2 = Choice(0, insertedQuestionId, "Answer 2", true, ChoiceType.One.toString())
-                var choice3 = Choice(0, insertedQuestionId, "Answer 3", false, ChoiceType.One.toString())
-                var choice4 = Choice(0, insertedQuestionId, "Answer 4", false, ChoiceType.One.toString())
+                val choice1 = Choice(0, insertedQuestionId, "Answer 1", false, ChoiceType.One.toString())
+                val choice2 = Choice(0, insertedQuestionId, "Answer 2", true, ChoiceType.One.toString())
+                val choice3 = Choice(0, insertedQuestionId, "Answer 3", false, ChoiceType.One.toString())
+                val choice4 = Choice(0, insertedQuestionId, "Answer 4", false, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                var question2 = Question("Kotlin question 2")
+                val question2 = Question("Kotlin question 2")
                 insertedQuestionId = db.questionDao().addQuestion(question2)
 
-                var choice21 = Choice(0, insertedQuestionId, "Answer 2-1", true, ChoiceType.Many.toString())
-                var choice22 = Choice(0, insertedQuestionId, "Answer 2-2", false, ChoiceType.Many.toString())
-                var choice23 = Choice(0, insertedQuestionId, "Answer 2-3", false, ChoiceType.Many.toString())
-                var choice24 = Choice(0, insertedQuestionId, "Answer 2-4", true, ChoiceType.Many.toString())
+                val choice21 = Choice(0, insertedQuestionId, "Answer 2-1", true, ChoiceType.Many.toString())
+                val choice22 = Choice(0, insertedQuestionId, "Answer 2-2", false, ChoiceType.Many.toString())
+                val choice23 = Choice(0, insertedQuestionId, "Answer 2-3", false, ChoiceType.Many.toString())
+                val choice24 = Choice(0, insertedQuestionId, "Answer 2-4", true, ChoiceType.Many.toString())
 
                 db.choiceDao().addChoice(choice21)
                 db.choiceDao().addChoice(choice22)
                 db.choiceDao().addChoice(choice23)
                 db.choiceDao().addChoice(choice24)
 
-                var question3 = Question("Kotlin question 3")
+                val question3 = Question("Kotlin question 3")
                 insertedQuestionId = db.questionDao().addQuestion(question3)
 
-                var choice31 = Choice(0, insertedQuestionId, "Answer 3-1", true, ChoiceType.Text.toString())
+                val choice31 = Choice(0, insertedQuestionId, "Answer 3-1", true, ChoiceType.Text.toString())
 
                 db.choiceDao().addChoice(choice31)
 

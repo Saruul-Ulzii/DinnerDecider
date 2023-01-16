@@ -28,41 +28,6 @@ class QuizViewModel : ViewModel() {
         return answersLiveData
     }
 
-    fun setAnswerByQuestionId(questionId: Long, answer: String) {
-        var question = questions.stream()
-            .filter { q -> q.question.id == questionId }
-            .findFirst()
-            .orElse(null)
-
-        if(question != null) {
-            var answer = answers.stream()
-                .filter { a -> a.questionId == questionId }
-                .findFirst()
-                .orElse(null)
-
-            if(answer != null) {
-                print("Answered already")
-            } else {
-                var correctChoices = question.choices.stream()
-                    .filter { c -> c.isCorrect }
-                    .findAny()
-                    .orElse(null)
-
-                print(correctChoices)
-
-                //SELECTION OPTION
-                if(question.choices.size > 0) {
-//                    var answer = Answer(questionId, answer, question.choices.)
-                } else {
-//                    var answer = Answer(questionId, answer, question.question.co)
-
-                }
-            }
-        } else {
-            print("Question not found")
-        }
-    }
-
     fun addCorrectScore() {
         _correctAnswerCounter.value = _correctAnswerCounter.value!! + 1
     }
@@ -72,7 +37,7 @@ class QuizViewModel : ViewModel() {
     }
 
     fun goNext() {
-        if (_currentIndex.value!! < 15) {
+        if (_currentIndex.value!! < questions.size) {
             _currentIndex.value = _currentIndex.value!! + 1
         } else {
             _currentIndex.value = 0
