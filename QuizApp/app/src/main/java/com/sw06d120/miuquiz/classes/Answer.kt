@@ -4,6 +4,6 @@ import java.io.Serializable
 
 data class Answer(
     val questionId: Long,
-    val answer: String,
+    var answer: String,
     val isCorrect: Boolean
 ) : Serializable

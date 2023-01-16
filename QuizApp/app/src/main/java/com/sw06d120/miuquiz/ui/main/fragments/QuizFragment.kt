@@ -1,8 +1,14 @@
 package com.sw06d120.miuquiz.ui.main.fragments
 
+import android.app.ActionBar.LayoutParams
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.StateListDrawable
+import android.icu.util.UniversalTimeScale.toLong
 import android.os.Bundle
+import android.text.TextUtils.split
+import android.util.LayoutDirection
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +19,8 @@ import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.allViews
 import androidx.core.view.children
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -77,22 +85,8 @@ class QuizFragment : Fragment() {
         val context = activity?.applicationContext
 
         val radioButtonGroup = RadioGroup(context)
+        radioButtonGroup.gravity = Gravity.CENTER_VERTICAL
 
-        val states = arrayOf(
-            intArrayOf(android.R.attr.state_enabled), // enabled
-            intArrayOf(-android.R.attr.state_enabled), // disabled
-            intArrayOf(-android.R.attr.state_checked), // unchecked
-            intArrayOf(android.R.attr.state_pressed)  // pressed
-        )
-
-        val colors = intArrayOf(
-            Color.BLACK,
-            Color.RED,
-            Color.GREEN,
-            Color.BLUE
-        )
-
-//        val colorList = ColorStateList(states, colors)
         val colorList = ColorStateList(
             arrayOf(
                 intArrayOf(-android.R.attr.state_enabled),  // Disabled
@@ -112,6 +106,10 @@ class QuizFragment : Fragment() {
                     radioButton.tag = choice.id
                     radioButton.buttonTintList = colorList
                     radioButton.textSize = 20f
+                    radioButton.gravity = Gravity.CENTER_VERTICAL
+//                    radioButton.height = LayoutParams.WRAP_CONTENT
+//                    radioButton.buttonDrawable = StateListDrawable()
+//                    radioButton.buttonDrawable = null
                     radioButton.typeface =
                         activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
                     radioButtonGroup.addView(radioButton)
@@ -125,6 +123,10 @@ class QuizFragment : Fragment() {
                     checkBox.text = choice.answer
                     checkBox.tag = choice.id
                     checkBox.textSize = 20f
+                    checkBox.gravity = Gravity.CENTER_VERTICAL
+//                    checkBox.height = LayoutParams.WRAP_CONTENT
+//                    checkBox.buttonDrawable = StateListDrawable()
+//                    checkBox.buttonDrawable = null
                     checkBox.buttonTintList = colorList
                     checkBox.typeface =
                         activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
@@ -137,7 +139,7 @@ class QuizFragment : Fragment() {
                 val textInput = EditText(context)
                 textInput.height = 200
                 textInput.tag = currentQuestion?.choices?.get(0)?.answer ?: "ANSWER MUST BE NOT NULL"
-                textInput.textSize = 20f
+                textInput.textSize = 22f
                 textInput.hint = "Write your answer"
                 textInput.setHintTextColor(colorList)
                 textInput.typeface =
@@ -162,7 +164,7 @@ class QuizFragment : Fragment() {
                                 val choiceId = radioButton.tag.toString()
                                 currentAnswer = Answer(
                                     currentQuestion?.question?.id!!,
-                                    choiceId,
+                                    "[$choiceId]",
                                     isCorrectAnswer(choiceId)
                                 )
                                 break
@@ -180,7 +182,7 @@ class QuizFragment : Fragment() {
                         val answerCheckBox = answerView as CheckBox
                         if (answerView.isChecked) {
                             val choiceId = answerCheckBox.tag.toString()
-                            answerFormatted += "$choiceId;";
+                            answerFormatted += "[$choiceId]";
                         }
                     }
                 }
@@ -202,7 +204,7 @@ class QuizFragment : Fragment() {
                             viewModel.addCorrectScore()
                             currentAnswer = Answer(
                                 currentQuestion?.question?.id!!,
-                                answerEditText.id.toString(),
+                                "[" + answerEditText.id.toString() + "]",
                                 true
                             )
                         }
@@ -232,7 +234,7 @@ class QuizFragment : Fragment() {
         when (choiceType) {
             ChoiceType.One.toString() -> {
                 for (choice in currentQuestion?.choices!!) {
-                    if (choice.isCorrect && choice.id.equals(selectedChoice.toLong())) {
+                    if (choice.isCorrect && choice.id.equals(selectedChoice.replace("[","").replace("]","").toLong())) {
                         viewModel.addCorrectScore()
                         return true
                     }
@@ -240,7 +242,7 @@ class QuizFragment : Fragment() {
                 return false
             }
             ChoiceType.Many.toString() -> {
-                var answers = selectedChoice.split(";")
+                var answers = selectedChoice.replace("[","").split("]")
                 var correctCount = 0
 
                 for(answer in answers) {

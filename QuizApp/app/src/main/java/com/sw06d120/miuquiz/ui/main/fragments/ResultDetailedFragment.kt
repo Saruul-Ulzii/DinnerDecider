@@ -1,5 +1,6 @@
 package com.sw06d120.miuquiz.ui.main.fragments
 
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
@@ -53,27 +54,29 @@ class ResultDetailedFragment : Fragment() {
     }
 
     fun createAnalysisView() {
-        for(question in questions!!) {
-            addQuestionSection(question = question)
+        for((index, question) in questions!!.withIndex()) {
+            addQuestionSection(index + 1, question = question)
         }
     }
 
-    fun addQuestionSection(question: QuestionWithChoices) {
+    fun addQuestionSection(index: Int, question: QuestionWithChoices) {
         val context = activity?.applicationContext!!
 
         val choices = question.choices
         var answers = getAnswersByQuestionsId(question.question.id)
 
         val questionSection = CardView(context)
+        questionSection.setCardBackgroundColor(Color.WHITE)
         val questionInnerLayout = LinearLayout(context)
+        questionInnerLayout.setBackgroundColor(Color.WHITE)
         questionInnerLayout.orientation = LinearLayout.VERTICAL
         questionSection.addView(questionInnerLayout)
 
         val txtQuestion = TextView(context)
-        txtQuestion.textSize = 40f
+        txtQuestion.textSize = 25f
         txtQuestion.typeface =
             activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_regular) }
-        txtQuestion.text = question.question.question
+        txtQuestion.text = "Question #${index} \n" + question.question.question
         questionInnerLayout.addView(txtQuestion)
 
         for(choice in choices) {
@@ -81,8 +84,9 @@ class ResultDetailedFragment : Fragment() {
             answerInnerLayout.orientation = LinearLayout.HORIZONTAL
 
             val checkPart = TextView(context)
-            checkPart.text = choice.isCorrect.toString()
+            checkPart.text = if (choice.isCorrect) "☑ " else "□ "
             checkPart.textSize = 20f
+            checkPart.setTextColor(0xFF689F38.toInt())
             checkPart.typeface =
                 activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
             answerInnerLayout.addView(checkPart)
@@ -94,26 +98,57 @@ class ResultDetailedFragment : Fragment() {
                 activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
             answerInnerLayout.addView(choiceQuestion)
 
+            val answerRightLayout = LinearLayout(context)
+            answerRightLayout.orientation = LinearLayout.HORIZONTAL
+            answerRightLayout.gravity = Gravity.END
+            answerInnerLayout.addView(answerRightLayout)
+
             if(answers.size > 0) {
-                var answered = answers.filter { answer: Answer -> answer.answer.contains(choice.id.toString()) }.orEmpty()
+                var answered = answers.filter { answer: Answer -> answer.answer.contains("[" + choice.id.toString() + "]") }.orEmpty()
 
                 if(answered.size > 0) {
-                    val answerRightLayout = LinearLayout(context)
-                    answerRightLayout.orientation = LinearLayout.HORIZONTAL
-                    answerRightLayout.gravity = Gravity.END
-                    answerInnerLayout.addView(answerRightLayout)
+                    if(choice.isCorrect) {
+                        for(perAnswer in answered) {
+                            perAnswer.answer = perAnswer.answer.replace("[" + choice.id.toString() + "]", "")
+                        }
 
-                    val answeredChoice = TextView(context)
-                    answeredChoice.text = "<="
-                    answeredChoice.textSize = 20f
-                    answeredChoice.typeface =
-                        activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
-                    answerRightLayout.addView(answeredChoice)
+                        val answeredChoice = TextView(context)
+                        answeredChoice.text = "    CORRECT"
+                        answeredChoice.gravity = Gravity.START
+                        answeredChoice.setTextColor(0xFF009688.toInt())
+                        answeredChoice.textSize = 20f
+                        answeredChoice.typeface =
+                            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
+                        answerRightLayout.addView(answeredChoice)
+                    } else {
+                        val answeredChoice = TextView(context)
+                        answeredChoice.text = "    WRONG"
+                        answeredChoice.gravity = Gravity.START
+                        answeredChoice.setTextColor(0xFFD32F2F.toInt())
+                        answeredChoice.textSize = 20f
+                        answeredChoice.typeface =
+                            activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
+                        answerRightLayout.addView(answeredChoice)
+                    }
                 }
+            } else if(choice.isCorrect) {
+                val answeredChoice = TextView(context)
+                answeredChoice.text = "    NO ANSWER"
+                answeredChoice.gravity = Gravity.START
+                answeredChoice.setTextColor(0xFFD32F2F.toInt())
+                answeredChoice.textSize = 20f
+                answeredChoice.typeface =
+                    activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
+                answerRightLayout.addView(answeredChoice)
             }
 
             questionInnerLayout.addView(answerInnerLayout)
         }
+
+        val gap = TextView(context)
+        gap.text = " "
+        gap.textSize = 20f
+        questionInnerLayout.addView(gap)
 
         layoutQuestion.addView(questionSection)
     }
