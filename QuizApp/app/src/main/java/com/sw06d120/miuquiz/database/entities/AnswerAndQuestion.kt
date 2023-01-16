@@ -7,7 +7,7 @@ data class Question(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val question: String
-){
+) {
     constructor(question: String) : this(0, question)
 }
 
@@ -26,8 +26,13 @@ data class Answer(
     val answer: String,
     val questionId: Long,
     val isCorrect: Boolean
-){
-    constructor(answer: com.sw06d120.miuquiz.classes.Answer) : this(0, answer.answer, answer.questionId, answer.isCorrect)
+) {
+    constructor(answer: com.sw06d120.miuquiz.classes.Answer) : this(
+        0,
+        answer.answer,
+        answer.questionId,
+        answer.isCorrect
+    )
 }
 
 data class AnswerAndQuestion(

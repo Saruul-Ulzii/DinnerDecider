@@ -50,9 +50,11 @@ abstract class QuizDatabase() : RoomDatabase() {
         private val sRoomDatabaseCallback: Callback = object : Callback() {
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
-                instance?.let { PopulateDbAsync(it).run {
+                instance?.let {
+                    PopulateDbAsync(it).run {
 
-                } }
+                    }
+                }
             }
         }
     }
@@ -60,21 +62,13 @@ abstract class QuizDatabase() : RoomDatabase() {
     private class PopulateDbAsync internal constructor(db: QuizDatabase) :
         AsyncTask<Void?, Void?, Void?>() {
         private val qDao: QuizDao
-//        var words = arrayOf("dolphin", "crocodile", "cobra")
 
         init {
             qDao = db.quizDao()
         }
 
         override fun doInBackground(vararg params: Void?): Void? {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate the database
-            // when it is first created
             qDao.deleteAll()
-//            for (i in 0..words.size - 1) {
-//                val word = Word(words[i])
-//                mDao.insert(word)
-//            }
             return null
         }
     }

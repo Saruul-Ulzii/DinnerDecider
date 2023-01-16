@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.sw06d120.miuquiz.R
 import com.sw06d120.miuquiz.models.QuizViewModel
-import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_result.*
 import kotlinx.android.synthetic.main.fragment_result.view.*
 
@@ -75,7 +74,8 @@ class ResultFragment : Fragment() {
         viewModel.correctAnswerCounter.observe(viewLifecycleOwner, Observer { currentQuestionId ->
             txtTotalCount.text = "Total: " + viewModel.questions.size.toString()
             txtCorrectCount.text = "Correct: " + viewModel.correctAnswerCounter.value.toString()
-            txtWrongCount.text = "Wrong: " + (viewModel.questions.size - viewModel.correctAnswerCounter.value!!).toString()
+            txtWrongCount.text =
+                "Wrong: " + (viewModel.questions.size - viewModel.correctAnswerCounter.value!!).toString()
         })
 
         return view

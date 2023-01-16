@@ -1,7 +1,6 @@
 package com.sw06d120.miuquiz.database.daos
 
 import androidx.room.*
-import com.sw06d120.miuquiz.database.entities.ChoiceAndQuestion
 import com.sw06d120.miuquiz.database.entities.Question
 import com.sw06d120.miuquiz.database.entities.QuestionWithChoices
 

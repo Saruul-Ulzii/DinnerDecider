@@ -1,6 +1,5 @@
 package com.sw06d120.miuquiz.ui.main.fragments
 
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import com.sw06d120.miuquiz.R
 import com.sw06d120.miuquiz.classes.ChoiceType
 import com.sw06d120.miuquiz.database.QuizDatabase
 import com.sw06d120.miuquiz.database.entities.Choice
-import com.sw06d120.miuquiz.database.entities.ChoiceAndQuestion
 import com.sw06d120.miuquiz.database.entities.Question
 import com.sw06d120.miuquiz.models.QuizViewModel
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -60,19 +58,45 @@ class HomeFragment : BaseFragment() {
 
     fun populateDatabase() {
         GlobalScope.launch {
-            context?.let {val db = QuizDatabase(it)
+            context?.let {
+                val db = QuizDatabase(it)
                 db.questionDao().deleteAll()
                 db.choiceDao().deleteAll()
                 db.answerDao().deleteAll()
                 db.quizDao().deleteAll()
 
-                var question1 = Question("What is a correct syntax to output \"Hello World\" in Kotlin?")
+                var question1 =
+                    Question("What is a correct syntax to output \"Hello World\" in Kotlin?")
                 var insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                var choice1 = Choice(0, insertedQuestionId, "println(\"Hello World\")", true, ChoiceType.One.toString())
-                var choice2 = Choice(0, insertedQuestionId, "System.out.printline(\"Hello World\")", false, ChoiceType.One.toString())
-                var choice3 = Choice(0, insertedQuestionId, "Console.WriteLine(\"Hello World\");", false, ChoiceType.One.toString())
-                var choice4 = Choice(0, insertedQuestionId, "cout << \"Hello World\";", false, ChoiceType.One.toString())
+                var choice1 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "println(\"Hello World\")",
+                    true,
+                    ChoiceType.One.toString()
+                )
+                var choice2 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "System.out.printline(\"Hello World\")",
+                    false,
+                    ChoiceType.One.toString()
+                )
+                var choice3 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "Console.WriteLine(\"Hello World\");",
+                    false,
+                    ChoiceType.One.toString()
+                )
+                var choice4 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "cout << \"Hello World\";",
+                    false,
+                    ChoiceType.One.toString()
+                )
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
@@ -82,10 +106,34 @@ class HomeFragment : BaseFragment() {
                 question1 = Question("How do you insert COMMENTS in Kotlin code?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "# This is a comment", false, ChoiceType.One.toString())
-                choice2 = Choice(0, insertedQuestionId, "/* This is a comment", false, ChoiceType.One.toString())
-                choice3 = Choice(0, insertedQuestionId, "-- This is a comment", false, ChoiceType.One.toString())
-                choice4 = Choice(0, insertedQuestionId, "// This is a comment  ", true, ChoiceType.One.toString())
+                choice1 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "# This is a comment",
+                    false,
+                    ChoiceType.One.toString()
+                )
+                choice2 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "/* This is a comment",
+                    false,
+                    ChoiceType.One.toString()
+                )
+                choice3 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "-- This is a comment",
+                    false,
+                    ChoiceType.One.toString()
+                )
+                choice4 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "// This is a comment  ",
+                    true,
+                    ChoiceType.One.toString()
+                )
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
@@ -95,7 +143,8 @@ class HomeFragment : BaseFragment() {
                 val question3 = Question("Kotlin was developed by ___")
                 insertedQuestionId = db.questionDao().addQuestion(question3)
 
-                val choice31 = Choice(0, insertedQuestionId, "JetBrains", true, ChoiceType.Text.toString())
+                val choice31 =
+                    Choice(0, insertedQuestionId, "JetBrains", true, ChoiceType.Text.toString())
                 db.choiceDao().addChoice(choice31)
 
                 question1 = Question("Which keyword is used to declare a function?")
@@ -104,7 +153,8 @@ class HomeFragment : BaseFragment() {
                 choice1 = Choice(0, insertedQuestionId, "define", false, ChoiceType.One.toString())
                 choice2 = Choice(0, insertedQuestionId, "fun  ", true, ChoiceType.One.toString())
                 choice3 = Choice(0, insertedQuestionId, "func", false, ChoiceType.One.toString())
-                choice4 = Choice(0, insertedQuestionId, "function", false, ChoiceType.One.toString())
+                choice4 =
+                    Choice(0, insertedQuestionId, "function", false, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
@@ -120,19 +170,28 @@ class HomeFragment : BaseFragment() {
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
 
-                question1 = Question("Kotlin is a statically-typed programming language which runs on the ___")
+                question1 =
+                    Question("Kotlin is a statically-typed programming language which runs on the ___")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
                 choice1 = Choice(0, insertedQuestionId, "JVM", true, ChoiceType.Text.toString())
                 db.choiceDao().addChoice(choice1)
 
-                question1 = Question("Kotlin is interoperable with Java because it uses JVM bytecode.")
+                question1 =
+                    Question("Kotlin is interoperable with Java because it uses JVM bytecode.")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
                 choice1 = Choice(0, insertedQuestionId, "Yes", true, ChoiceType.One.toString())
                 choice2 = Choice(0, insertedQuestionId, "No", false, ChoiceType.One.toString())
-                choice3 = Choice(0, insertedQuestionId, "Can be yes or no", false, ChoiceType.One.toString())
-                choice4 = Choice(0, insertedQuestionId, "Can not say", false, ChoiceType.One.toString())
+                choice3 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "Can be yes or no",
+                    false,
+                    ChoiceType.One.toString()
+                )
+                choice4 =
+                    Choice(0, insertedQuestionId, "Can not say", false, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
@@ -142,10 +201,29 @@ class HomeFragment : BaseFragment() {
                 question1 = Question("How can you declare a variable in Kotlin?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "var my_var: Char", true, ChoiceType.Many.toString())
-                choice2 = Choice(0, insertedQuestionId, "var Char : my_var", false, ChoiceType.Many.toString())
-                choice3 = Choice(0, insertedQuestionId, "my_var: Char", false, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "val my_var: Char", true, ChoiceType.Many.toString())
+                choice1 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "var my_var: Char",
+                    true,
+                    ChoiceType.Many.toString()
+                )
+                choice2 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "var Char : my_var",
+                    false,
+                    ChoiceType.Many.toString()
+                )
+                choice3 =
+                    Choice(0, insertedQuestionId, "my_var: Char", false, ChoiceType.Many.toString())
+                choice4 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "val my_var: Char",
+                    true,
+                    ChoiceType.Many.toString()
+                )
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
@@ -157,7 +235,8 @@ class HomeFragment : BaseFragment() {
 
                 choice1 = Choice(0, insertedQuestionId, "public", false, ChoiceType.One.toString())
                 choice2 = Choice(0, insertedQuestionId, "sealed", false, ChoiceType.One.toString())
-                choice3 = Choice(0, insertedQuestionId, "abstract", false, ChoiceType.One.toString())
+                choice3 =
+                    Choice(0, insertedQuestionId, "abstract", false, ChoiceType.One.toString())
                 choice4 = Choice(0, insertedQuestionId, "final", true, ChoiceType.One.toString())
 
                 db.choiceDao().addChoice(choice1)
@@ -171,7 +250,13 @@ class HomeFragment : BaseFragment() {
                 choice1 = Choice(0, insertedQuestionId, "switch", false, ChoiceType.Many.toString())
                 choice2 = Choice(0, insertedQuestionId, "when", true, ChoiceType.Many.toString())
                 choice3 = Choice(0, insertedQuestionId, "arrayOf", true, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "LinkedTreeMap", false, ChoiceType.Many.toString())
+                choice4 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "LinkedTreeMap",
+                    false,
+                    ChoiceType.Many.toString()
+                )
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
@@ -181,7 +266,8 @@ class HomeFragment : BaseFragment() {
                 question1 = Question("How many types of constructors available in Kotlin?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "more than 1", true, ChoiceType.Many.toString())
+                choice1 =
+                    Choice(0, insertedQuestionId, "more than 1", true, ChoiceType.Many.toString())
                 choice2 = Choice(0, insertedQuestionId, "4", false, ChoiceType.Many.toString())
                 choice3 = Choice(0, insertedQuestionId, "2", true, ChoiceType.Many.toString())
                 choice4 = Choice(0, insertedQuestionId, "11", false, ChoiceType.Many.toString())
@@ -191,31 +277,59 @@ class HomeFragment : BaseFragment() {
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("___ feature allows removing the risk of occurrence of NullPointerException in real time.")
+                question1 =
+                    Question("___ feature allows removing the risk of occurrence of NullPointerException in real time.")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Null Safety", true, ChoiceType.Text.toString())
+                choice1 =
+                    Choice(0, insertedQuestionId, "Null Safety", true, ChoiceType.Text.toString())
                 db.choiceDao().addChoice(choice1)
 
-                question1 = Question("Which of th following is used to compare two strings in Kotlin?")
+                question1 =
+                    Question("Which of th following is used to compare two strings in Kotlin?")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
-                choice1 = Choice(0, insertedQuestionId, "Using == operator", true, ChoiceType.Many.toString())
+                choice1 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "Using == operator",
+                    true,
+                    ChoiceType.Many.toString()
+                )
                 choice2 = Choice(0, insertedQuestionId, "<", false, ChoiceType.Many.toString())
-                choice3 = Choice(0, insertedQuestionId, "Using compareTo() extension function", true, ChoiceType.Many.toString())
-                choice4 = Choice(0, insertedQuestionId, "None of the above", false, ChoiceType.Many.toString())
+                choice3 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "Using compareTo() extension function",
+                    true,
+                    ChoiceType.Many.toString()
+                )
+                choice4 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "None of the above",
+                    false,
+                    ChoiceType.Many.toString()
+                )
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)
                 db.choiceDao().addChoice(choice3)
                 db.choiceDao().addChoice(choice4)
 
-                question1 = Question("Elvis Operator is used for handling null expectations in Kotlin.")
+                question1 =
+                    Question("Elvis Operator is used for handling null expectations in Kotlin.")
                 insertedQuestionId = db.questionDao().addQuestion(question1)
 
                 choice1 = Choice(0, insertedQuestionId, "FALSE", false, ChoiceType.One.toString())
                 choice2 = Choice(0, insertedQuestionId, "TRUE", true, ChoiceType.One.toString())
-                choice3 = Choice(0, insertedQuestionId, "Can be true or false", false, ChoiceType.One.toString())
+                choice3 = Choice(
+                    0,
+                    insertedQuestionId,
+                    "Can be true or false",
+                    false,
+                    ChoiceType.One.toString()
+                )
 
                 db.choiceDao().addChoice(choice1)
                 db.choiceDao().addChoice(choice2)

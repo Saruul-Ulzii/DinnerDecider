@@ -1,13 +1,7 @@
 package com.sw06d120.miuquiz.ui.main.fragments
 
-import android.app.ActionBar.LayoutParams
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.drawable.StateListDrawable
-import android.icu.util.UniversalTimeScale.toLong
 import android.os.Bundle
-import android.text.TextUtils.split
-import android.util.LayoutDirection
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +13,6 @@ import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.allViews
 import androidx.core.view.children
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -31,7 +23,6 @@ import com.sw06d120.miuquiz.classes.ChoiceType
 import com.sw06d120.miuquiz.database.QuizDatabase
 import com.sw06d120.miuquiz.database.entities.QuestionWithChoices
 import com.sw06d120.miuquiz.models.QuizViewModel
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_quiz.view.*
 import kotlinx.coroutines.GlobalScope
@@ -108,7 +99,12 @@ class QuizFragment : Fragment() {
                     radioButton.textSize = 20f
                     radioButton.gravity = Gravity.CENTER_VERTICAL
                     radioButton.typeface =
-                        activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
+                        activity?.let {
+                            ResourcesCompat.getFont(
+                                it.applicationContext,
+                                R.font.oswald_light
+                            )
+                        }
                     radioButtonGroup.addView(radioButton)
                 }
 
@@ -123,7 +119,12 @@ class QuizFragment : Fragment() {
                     checkBox.gravity = Gravity.CENTER_VERTICAL
                     checkBox.buttonTintList = colorList
                     checkBox.typeface =
-                        activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
+                        activity?.let {
+                            ResourcesCompat.getFont(
+                                it.applicationContext,
+                                R.font.oswald_light
+                            )
+                        }
                     checkBox.isChecked = false
 
                     layoutAnswers.addView(checkBox)
@@ -132,12 +133,18 @@ class QuizFragment : Fragment() {
             ChoiceType.Text.toString() -> {
                 val textInput = EditText(context)
                 textInput.height = 200
-                textInput.tag = currentQuestion?.choices?.get(0)?.answer ?: "ANSWER MUST BE NOT NULL"
+                textInput.tag =
+                    currentQuestion?.choices?.get(0)?.answer ?: "ANSWER MUST BE NOT NULL"
                 textInput.textSize = 22f
                 textInput.hint = "Write your answer"
                 textInput.setHintTextColor(colorList)
                 textInput.typeface =
-                    activity?.let { ResourcesCompat.getFont(it.applicationContext, R.font.oswald_light) }
+                    activity?.let {
+                        ResourcesCompat.getFont(
+                            it.applicationContext,
+                            R.font.oswald_light
+                        )
+                    }
                 textInput.id = currentQuestion?.choices?.get(0)?.id?.toInt() ?: 0
                 layoutAnswers.addView(textInput)
             }
@@ -181,7 +188,7 @@ class QuizFragment : Fragment() {
                     }
                 }
 
-                if(answerFormatted != "") {
+                if (answerFormatted != "") {
                     currentAnswer = Answer(
                         currentQuestion?.question?.id!!,
                         answerFormatted,
@@ -194,7 +201,9 @@ class QuizFragment : Fragment() {
                     if (answerView is EditText) {
                         val answerEditText = answerView as EditText
                         val answerText = answerEditText.tag.toString()
-                        if(answerText != "" && answerEditText.text.trim().toString().lowercase().equals(answerText.lowercase())) {
+                        if (answerText != "" && answerEditText.text.trim().toString().lowercase()
+                                .equals(answerText.lowercase())
+                        ) {
                             viewModel.addCorrectScore()
                             currentAnswer = Answer(
                                 currentQuestion?.question?.id!!,
@@ -221,14 +230,17 @@ class QuizFragment : Fragment() {
     }
 
     fun isCorrectAnswer(selectedChoice: String): Boolean {
-        if(selectedChoice.equals("")) return false
+        if (selectedChoice.equals("")) return false
 
         val choiceType = currentQuestion?.choices?.get(0)?.type
 
         when (choiceType) {
             ChoiceType.One.toString() -> {
                 for (choice in currentQuestion?.choices!!) {
-                    if (choice.isCorrect && choice.id.equals(selectedChoice.replace("[","").replace("]","").toLong())) {
+                    if (choice.isCorrect && choice.id.equals(
+                            selectedChoice.replace("[", "").replace("]", "").toLong()
+                        )
+                    ) {
                         viewModel.addCorrectScore()
                         return true
                     }
@@ -236,13 +248,13 @@ class QuizFragment : Fragment() {
                 return false
             }
             ChoiceType.Many.toString() -> {
-                var answers = selectedChoice.replace("[","").split("]")
+                var answers = selectedChoice.replace("[", "").split("]")
                 var correctCount = 0
 
-                for(answer in answers) {
-                    if(answer != "") {
+                for (answer in answers) {
+                    if (answer != "") {
                         for (choice in currentQuestion?.choices!!) {
-                            if(choice.isCorrect && choice.id.equals(answer.toLong())) {
+                            if (choice.isCorrect && choice.id.equals(answer.toLong())) {
                                 correctCount++
                                 break
                             }
@@ -250,7 +262,7 @@ class QuizFragment : Fragment() {
                     }
                 }
 
-                if(correctCount == answers.size - 1) {
+                if (correctCount == answers.size - 1) {
                     viewModel.addCorrectScore()
                     return true
                 } else {
